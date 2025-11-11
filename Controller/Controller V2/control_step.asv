@@ -1,0 +1,33 @@
+function [motors] = control_step(current_P, target_P)
+    deadband = 1;
+    P1 = current_P(1);
+    P2 = current_P(2);
+    P3 = current_P(3);
+
+    % motor 1
+    if current_P(1) < P1 - deadband
+        M1 = 1;
+    elseif current_P(1) > P1 + deadband
+        M1 = -1;
+    else
+        M1 = 0;
+    end
+
+    % motor 2
+    if current_P(2) < P2 - deadband
+        M2 = 1;
+    elseif current_P(2) > P2 + deadband
+        M2 = -1;
+    else
+        M2 = 0;
+    end
+
+    % motor 3
+    if current_P(4) < P3 - deadband
+        M3 = 1;
+    elseif current_P(3) > P3 + deadband
+        M3 = -1;
+    else
+        M3 = 0;
+    end
+end

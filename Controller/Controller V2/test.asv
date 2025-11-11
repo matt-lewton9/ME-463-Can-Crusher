@@ -1,0 +1,4 @@
+function [a1, a2, a3] = test(F, M, theta)
+    a1 = 1/3 * (F + 2*M*cos(theta)/r);
+    a2 = 1/3 
+end
