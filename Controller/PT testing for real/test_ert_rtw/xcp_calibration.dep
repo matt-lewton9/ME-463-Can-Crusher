@@ -1,0 +1,59 @@
+xcp_calibration.o: \
+ /Applications/MATLAB_R2025a.app/toolbox/coder/xcp/src/target/server/protocol/src/xcp_calibration.c \
+ /Applications/MATLAB_R2025a.app/toolbox/coder/xcp/src/target/server/common/xcp_common.h \
+ /Users/tak/Documents/GitHub/ME-463-Can-Crusher/Controller/PT\ testing\ for\ real/test_ert_rtw/rtwtypes.h \
+ /Applications/MATLAB_R2025a.app/extern/include/tmwtypes.h \
+ /Applications/MATLAB_R2025a.app/toolbox/coder/xcp/src/target/server/platform/include/xcp_platform.h \
+ /Users/tak/Documents/MATLAB/SupportPackages/R2025a/toolbox/target/supportpackages/arduinotarget/include/xcp_platform_custom.h \
+ /Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/cores/arduino/Arduino.h \
+ /Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/cores/arduino/binary.h \
+ /Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/variants/mega/pins_arduino.h \
+ /Applications/MATLAB_R2025a.app/toolbox/coder/xcp/src/target/server/include/xcp.h \
+ /Applications/MATLAB_R2025a.app/toolbox/coder/xcp/src/target/server/protocol/src/xcp_cfg.h \
+ /Applications/MATLAB_R2025a.app/toolbox/coder/xcp/src/target/server/protocol/src/xcp_calibration.h \
+ /Applications/MATLAB_R2025a.app/toolbox/coder/xcp/src/target/server/protocol/src/xcp_types.h \
+ /Applications/MATLAB_R2025a.app/toolbox/coder/xcp/src/target/server/protocol/src/xcp_calibration_types.h \
+ /Applications/MATLAB_R2025a.app/toolbox/coder/xcp/src/target/server/protocol/src/xcp_standard.h \
+ /Applications/MATLAB_R2025a.app/toolbox/coder/xcp/src/target/server/transport/include/xcp_transport_internal.h \
+ /Applications/MATLAB_R2025a.app/toolbox/coder/xcp/src/target/server/include/xcp_transport.h \
+ /Applications/MATLAB_R2025a.app/toolbox/coder/xcp/src/target/server/include/xcp.h \
+ /Applications/MATLAB_R2025a.app/toolbox/coder/xcp/src/target/server/platform/default/xcp_mem.h \
+ /Applications/MATLAB_R2025a.app/toolbox/coder/xcp/src/target/server/protocol/include/xcp_internal.h
+
+/Applications/MATLAB_R2025a.app/toolbox/coder/xcp/src/target/server/common/xcp_common.h:
+
+/Users/tak/Documents/GitHub/ME-463-Can-Crusher/Controller/PT\ testing\ for\ real/test_ert_rtw/rtwtypes.h:
+
+/Applications/MATLAB_R2025a.app/extern/include/tmwtypes.h:
+
+/Applications/MATLAB_R2025a.app/toolbox/coder/xcp/src/target/server/platform/include/xcp_platform.h:
+
+/Users/tak/Documents/MATLAB/SupportPackages/R2025a/toolbox/target/supportpackages/arduinotarget/include/xcp_platform_custom.h:
+
+/Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/cores/arduino/Arduino.h:
+
+/Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/cores/arduino/binary.h:
+
+/Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/variants/mega/pins_arduino.h:
+
+/Applications/MATLAB_R2025a.app/toolbox/coder/xcp/src/target/server/include/xcp.h:
+
+/Applications/MATLAB_R2025a.app/toolbox/coder/xcp/src/target/server/protocol/src/xcp_cfg.h:
+
+/Applications/MATLAB_R2025a.app/toolbox/coder/xcp/src/target/server/protocol/src/xcp_calibration.h:
+
+/Applications/MATLAB_R2025a.app/toolbox/coder/xcp/src/target/server/protocol/src/xcp_types.h:
+
+/Applications/MATLAB_R2025a.app/toolbox/coder/xcp/src/target/server/protocol/src/xcp_calibration_types.h:
+
+/Applications/MATLAB_R2025a.app/toolbox/coder/xcp/src/target/server/protocol/src/xcp_standard.h:
+
+/Applications/MATLAB_R2025a.app/toolbox/coder/xcp/src/target/server/transport/include/xcp_transport_internal.h:
+
+/Applications/MATLAB_R2025a.app/toolbox/coder/xcp/src/target/server/include/xcp_transport.h:
+
+/Applications/MATLAB_R2025a.app/toolbox/coder/xcp/src/target/server/include/xcp.h:
+
+/Applications/MATLAB_R2025a.app/toolbox/coder/xcp/src/target/server/platform/default/xcp_mem.h:
+
+/Applications/MATLAB_R2025a.app/toolbox/coder/xcp/src/target/server/protocol/include/xcp_internal.h:
