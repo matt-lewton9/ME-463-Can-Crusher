@@ -1,0 +1,68 @@
+MW_arduinoI2C.o: \
+ /Users/tak/Documents/MATLAB/SupportPackages/R2025a/toolbox/target/supportpackages/arduinobase/src/MW_arduinoI2C.cpp \
+ /Applications/MATLAB_R2025a.app/toolbox/target/shared/svd/common/include/MW_I2C.h \
+ /Applications/MATLAB_R2025a.app/toolbox/target/shared/svd/common/include/MW_SVD.h \
+ /Users/tak/Documents/GitHub/ME-463-Can-Crusher/Controller/PT\ testing\ for\ real/test_ert_rtw/rtwtypes.h \
+ /Applications/MATLAB_R2025a.app/extern/include/tmwtypes.h \
+ /Users/tak/Documents/GitHub/ME-463-Can-Crusher/Controller/PT\ testing\ for\ real/test_ert_rtw/MW_target_hardware_resources.h \
+ /Users/tak/Documents/MATLAB/SupportPackages/R2025a/toolbox/target/supportpackages/arduinotarget/include/MW_ArduinoHWInit.h \
+ /Users/tak/Documents/MATLAB/SupportPackages/R2025a/toolbox/target/supportpackages/arduinotarget/scheduler/include/arduinoAVRScheduler.h \
+ /Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/cores/arduino/Arduino.h \
+ /Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/cores/arduino/binary.h \
+ /Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/cores/arduino/WCharacter.h \
+ /Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/cores/arduino/WString.h \
+ /Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/cores/arduino/HardwareSerial.h \
+ /Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/cores/arduino/Stream.h \
+ /Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/cores/arduino/Print.h \
+ /Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/cores/arduino/Printable.h \
+ /Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/cores/arduino/USBAPI.h \
+ /Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/cores/arduino/Arduino.h \
+ /Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/variants/mega/pins_arduino.h \
+ /Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/libraries/Wire/src/Wire.h \
+ /Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/cores/arduino/Stream.h \
+ /Users/tak/Documents/MATLAB/SupportPackages/R2025a/toolbox/target/supportpackages/arduinobase/include/io_wrappers.h \
+ /Users/tak/Documents/MATLAB/SupportPackages/R2025a/toolbox/target/supportpackages/arduinobase/include/peripheralIncludes.h
+
+/Applications/MATLAB_R2025a.app/toolbox/target/shared/svd/common/include/MW_I2C.h:
+
+/Applications/MATLAB_R2025a.app/toolbox/target/shared/svd/common/include/MW_SVD.h:
+
+/Users/tak/Documents/GitHub/ME-463-Can-Crusher/Controller/PT\ testing\ for\ real/test_ert_rtw/rtwtypes.h:
+
+/Applications/MATLAB_R2025a.app/extern/include/tmwtypes.h:
+
+/Users/tak/Documents/GitHub/ME-463-Can-Crusher/Controller/PT\ testing\ for\ real/test_ert_rtw/MW_target_hardware_resources.h:
+
+/Users/tak/Documents/MATLAB/SupportPackages/R2025a/toolbox/target/supportpackages/arduinotarget/include/MW_ArduinoHWInit.h:
+
+/Users/tak/Documents/MATLAB/SupportPackages/R2025a/toolbox/target/supportpackages/arduinotarget/scheduler/include/arduinoAVRScheduler.h:
+
+/Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/cores/arduino/Arduino.h:
+
+/Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/cores/arduino/binary.h:
+
+/Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/cores/arduino/WCharacter.h:
+
+/Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/cores/arduino/WString.h:
+
+/Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/cores/arduino/HardwareSerial.h:
+
+/Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/cores/arduino/Stream.h:
+
+/Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/cores/arduino/Print.h:
+
+/Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/cores/arduino/Printable.h:
+
+/Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/cores/arduino/USBAPI.h:
+
+/Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/cores/arduino/Arduino.h:
+
+/Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/variants/mega/pins_arduino.h:
+
+/Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/libraries/Wire/src/Wire.h:
+
+/Users/tak/Documents/MATLAB/SupportPackages/R2025a/3P.instrset/arduinoide.instrset/aCLI/data/packages/arduino/hardware/avr/1.8.3/cores/arduino/Stream.h:
+
+/Users/tak/Documents/MATLAB/SupportPackages/R2025a/toolbox/target/supportpackages/arduinobase/include/io_wrappers.h:
+
+/Users/tak/Documents/MATLAB/SupportPackages/R2025a/toolbox/target/supportpackages/arduinobase/include/peripheralIncludes.h:
