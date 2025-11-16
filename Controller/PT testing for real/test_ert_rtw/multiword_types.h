@@ -7,9 +7,21 @@
  *
  * Code generation for model "test".
  *
+<<<<<<< Updated upstream
  * Model version              : 1.5
  * Simulink Coder version : 25.1 (R2025a) 21-Nov-2024
  * C source code generated on : Fri Nov 14 08:23:29 2025
+=======
+<<<<<<< HEAD:Controller/PT Testing/testing_ert_rtw/multiword_types.h
+ * Model version              : 1.8
+ * Simulink Coder version : 25.1 (R2025a) 21-Nov-2024
+ * C source code generated on : Thu Nov 13 14:03:39 2025
+=======
+ * Model version              : 1.5
+ * Simulink Coder version : 25.1 (R2025a) 21-Nov-2024
+ * C source code generated on : Fri Nov 14 08:23:29 2025
+>>>>>>> d8fe93d0735132b4394d298923e49b5c596820f4:Controller/PT testing for real/test_ert_rtw/multiword_types.h
+>>>>>>> Stashed changes
  *
  * Target selection: ert.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping

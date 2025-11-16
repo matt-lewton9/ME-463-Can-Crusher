@@ -1,11 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MF0 version="1.1" packageUris="http://schema.mathworks.com/mf0/ci/19700101 http://schema.mathworks.com/mf0/sl_modelref_info/R2025a http://schema.mathworks.com/mf0/slexec_mm_sto/R2025a_202404151030 http://schema.mathworks.com/mf0/sltp_mm/R2025a_202406271200">
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD:Controller/PT Testing/slprj/ert/testing/tmwinternal/CompileInfo.xml
+  <ModelRefInfoRepo.ModelRefInfoRoot type="ModelRefInfoRepo.ModelRefInfoRoot" uuid="b0480480-794b-4b29-a91c-20a40d64ceee">
+    <childModelRefInfo type="ModelRefInfoRepo.ChildModelRefInfo" uuid="e3cb5486-412c-4223-8ac0-bab395f9644a">
+      <modelName>testing</modelName>
+      <modelPath>testing</modelPath>
+    </childModelRefInfo>
+    <clockResolutions type="ModelRefInfoRepo.ClockResolutionInfo" uuid="e0989c63-1b61-4e76-b7d8-2cf907afd61f">
+=======
+>>>>>>> Stashed changes
   <ModelRefInfoRepo.ModelRefInfoRoot type="ModelRefInfoRepo.ModelRefInfoRoot" uuid="d12ea535-4f6e-4bd6-b999-2774c44bab5e">
     <childModelRefInfo type="ModelRefInfoRepo.ChildModelRefInfo" uuid="ecd6c652-2b3a-417f-b463-54724e578391">
       <modelName>test</modelName>
       <modelPath>test</modelPath>
     </childModelRefInfo>
     <clockResolutions type="ModelRefInfoRepo.ClockResolutionInfo" uuid="701c4344-f594-4839-b212-73ea63c96e5f">
+<<<<<<< Updated upstream
+=======
+>>>>>>> d8fe93d0735132b4394d298923e49b5c596820f4:Controller/PT testing for real/slprj/ert/test/tmwinternal/CompileInfo.xml
+>>>>>>> Stashed changes
       <rateIdx>0</rateIdx>
       <resolution>.1</resolution>
       <source>DeducedFromSampleTime</source>
@@ -13,8 +28,18 @@
     <compDerivCacheNeedsReset>false</compDerivCacheNeedsReset>
     <compZcCacheNeedsReset>false</compZcCacheNeedsReset>
     <compiledTFinal>inf</compiledTFinal>
+<<<<<<< Updated upstream
     <dataSourceInfo type="ModelRefInfoRepo.DataSourceInfo" uuid="8be9ef9a-0d11-4cc2-964b-0f0df08604dd">
       <dataSources type="ModelRefInfoRepo.SourceInfo" uuid="9b54f536-792d-4ca7-a558-d0f94bf359ae">
+=======
+<<<<<<< HEAD:Controller/PT Testing/slprj/ert/testing/tmwinternal/CompileInfo.xml
+    <dataSourceInfo type="ModelRefInfoRepo.DataSourceInfo" uuid="cd9b2334-1742-46bc-8f44-a4effc038e8d">
+      <dataSources type="ModelRefInfoRepo.SourceInfo" uuid="abea2ee8-87cd-4ed2-a8e8-6b7d2ba7b3dc">
+=======
+    <dataSourceInfo type="ModelRefInfoRepo.DataSourceInfo" uuid="8be9ef9a-0d11-4cc2-964b-0f0df08604dd">
+      <dataSources type="ModelRefInfoRepo.SourceInfo" uuid="9b54f536-792d-4ca7-a558-d0f94bf359ae">
+>>>>>>> d8fe93d0735132b4394d298923e49b5c596820f4:Controller/PT testing for real/slprj/ert/test/tmwinternal/CompileInfo.xml
+>>>>>>> Stashed changes
         <includeAllSections>true</includeAllSections>
         <sourceName>base workspace</sourceName>
         <type>BaseWorkspace</type>
@@ -47,6 +72,23 @@
     <solverStatusFlags>335</solverStatusFlags>
     <timingAndTaskingRegistry>&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;slexec_sto version=&quot;1.1&quot; packageUris=&quot;http://schema.mathworks.com/mf0/slexec_mm_sto/R2025a_202404151030&quot;&gt;
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD:Controller/PT Testing/slprj/ert/testing/tmwinternal/CompileInfo.xml
+  &lt;sto.Registry type=&quot;sto.Registry&quot; uuid=&quot;9c6f3246-67f0-4d24-a6b3-3e7fc0c0cf8f&quot;&gt;
+    &lt;executionSpec&gt;Undetermined&lt;/executionSpec&gt;
+    &lt;identifier&gt;testing&lt;/identifier&gt;
+    &lt;clockRegistry type=&quot;sto.ClockRegistry&quot; uuid=&quot;77c80af8-8c0d-4ee8-b561-6a6005e77135&quot;&gt;
+      &lt;clocks type=&quot;sto.Timer&quot; uuid=&quot;e1f61871-ae76-4866-9cfc-f54888ced372&quot;&gt;
+        &lt;computedFundamentalDiscretePeriod&gt;.1&lt;/computedFundamentalDiscretePeriod&gt;
+        &lt;fastestDiscreteRate type=&quot;sto.ClassicPeriodicDiscreteRate&quot; uuid=&quot;4426b6fc-0af5-4105-8006-dde211df8515&quot;/&gt;
+        &lt;isDefaultTimer&gt;true&lt;/isDefaultTimer&gt;
+        &lt;resolution&gt;.1&lt;/resolution&gt;
+        &lt;timeAdvanceMode&gt;FixedStep&lt;/timeAdvanceMode&gt;
+        &lt;identifier&gt;testing::defaultTimer&lt;/identifier&gt;
+        &lt;rates type=&quot;sto.ClassicPeriodicDiscreteRate&quot; uuid=&quot;4426b6fc-0af5-4105-8006-dde211df8515&quot;&gt;
+=======
+>>>>>>> Stashed changes
   &lt;sto.Registry type=&quot;sto.Registry&quot; uuid=&quot;66eab225-068d-4b60-91c4-43e49fab9067&quot;&gt;
     &lt;executionSpec&gt;Undetermined&lt;/executionSpec&gt;
     &lt;identifier&gt;test&lt;/identifier&gt;
@@ -59,21 +101,49 @@
         &lt;timeAdvanceMode&gt;FixedStep&lt;/timeAdvanceMode&gt;
         &lt;identifier&gt;test::defaultTimer&lt;/identifier&gt;
         &lt;rates type=&quot;sto.ClassicPeriodicDiscreteRate&quot; uuid=&quot;4f9a0b1a-9269-48d6-852e-550d9638af68&quot;&gt;
+<<<<<<< Updated upstream
+=======
+>>>>>>> d8fe93d0735132b4394d298923e49b5c596820f4:Controller/PT testing for real/slprj/ert/test/tmwinternal/CompileInfo.xml
+>>>>>>> Stashed changes
           &lt;annotation&gt;D1&lt;/annotation&gt;
           &lt;clockId&gt;test::defaultTimer&lt;/clockId&gt;
           &lt;description&gt;Discrete 1&lt;/description&gt;
           &lt;taskId&gt;_task0&lt;/taskId&gt;
+<<<<<<< Updated upstream
           &lt;rateSpec type=&quot;sto.RateSpec&quot; uuid=&quot;d13d2d9c-0140-4085-9789-64c0aaecfdba&quot;&gt;
+=======
+<<<<<<< HEAD:Controller/PT Testing/slprj/ert/testing/tmwinternal/CompileInfo.xml
+          &lt;rateSpec type=&quot;sto.RateSpec&quot; uuid=&quot;737c93f6-0c19-4720-9b04-97dfcde86c6b&quot;&gt;
+=======
+          &lt;rateSpec type=&quot;sto.RateSpec&quot; uuid=&quot;d13d2d9c-0140-4085-9789-64c0aaecfdba&quot;&gt;
+>>>>>>> d8fe93d0735132b4394d298923e49b5c596820f4:Controller/PT testing for real/slprj/ert/test/tmwinternal/CompileInfo.xml
+>>>>>>> Stashed changes
             &lt;period&gt;.1&lt;/period&gt;
             &lt;rateType&gt;ClassicPeriodicDiscrete&lt;/rateType&gt;
           &lt;/rateSpec&gt;
         &lt;/rates&gt;
+<<<<<<< Updated upstream
         &lt;baseRate type=&quot;sto.ClassicPeriodicDiscreteRate&quot; uuid=&quot;675768c4-6fd4-40e7-9272-77ee88ea2c1a&quot;&gt;
+=======
+<<<<<<< HEAD:Controller/PT Testing/slprj/ert/testing/tmwinternal/CompileInfo.xml
+        &lt;baseRate type=&quot;sto.ClassicPeriodicDiscreteRate&quot; uuid=&quot;52b553bf-acd3-48e7-9e99-020292bb7a41&quot;&gt;
+=======
+        &lt;baseRate type=&quot;sto.ClassicPeriodicDiscreteRate&quot; uuid=&quot;675768c4-6fd4-40e7-9272-77ee88ea2c1a&quot;&gt;
+>>>>>>> d8fe93d0735132b4394d298923e49b5c596820f4:Controller/PT testing for real/slprj/ert/test/tmwinternal/CompileInfo.xml
+>>>>>>> Stashed changes
           &lt;annotation&gt;D1&lt;/annotation&gt;
           &lt;clockId&gt;test::defaultTimer&lt;/clockId&gt;
           &lt;description&gt;Discrete 1&lt;/description&gt;
           &lt;taskId&gt;_task0&lt;/taskId&gt;
+<<<<<<< Updated upstream
           &lt;rateSpec type=&quot;sto.RateSpec&quot; uuid=&quot;904b8df6-31bf-4318-84b4-1d5bcc4cd19b&quot;&gt;
+=======
+<<<<<<< HEAD:Controller/PT Testing/slprj/ert/testing/tmwinternal/CompileInfo.xml
+          &lt;rateSpec type=&quot;sto.RateSpec&quot; uuid=&quot;c2d6d8f3-6a14-44b1-9483-06b7e84d8717&quot;&gt;
+=======
+          &lt;rateSpec type=&quot;sto.RateSpec&quot; uuid=&quot;904b8df6-31bf-4318-84b4-1d5bcc4cd19b&quot;&gt;
+>>>>>>> d8fe93d0735132b4394d298923e49b5c596820f4:Controller/PT testing for real/slprj/ert/test/tmwinternal/CompileInfo.xml
+>>>>>>> Stashed changes
             &lt;period&gt;.1&lt;/period&gt;
             &lt;rateType&gt;ClassicPeriodicDiscrete&lt;/rateType&gt;
           &lt;/rateSpec&gt;
@@ -100,6 +170,16 @@
       &lt;/clocks&gt;
       &lt;timeAdvanceMode&gt;FixedStep&lt;/timeAdvanceMode&gt;
     &lt;/clockRegistry&gt;
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD:Controller/PT Testing/slprj/ert/testing/tmwinternal/CompileInfo.xml
+    &lt;taskRegistry type=&quot;sto.TaskRegistry&quot; uuid=&quot;adf08f9b-a87d-4c4b-92b0-ee169f2972ec&quot;&gt;
+      &lt;rootTaskHierarchyElements type=&quot;sto.Task&quot; uuid=&quot;5cb559c0-de95-49be-afef-9792c6fc25ef&quot;&gt;
+        &lt;isExecutable&gt;true&lt;/isExecutable&gt;
+        &lt;orderIndex&gt;1&lt;/orderIndex&gt;
+        &lt;rates type=&quot;sto.ClassicPeriodicDiscreteRate&quot; uuid=&quot;15ec1e38-f291-450e-b5e6-b9e357fd3a76&quot;&gt;
+=======
+>>>>>>> Stashed changes
     &lt;taskRegistry type=&quot;sto.TaskRegistry&quot; uuid=&quot;444e907b-8898-4244-a359-1c75d740ac0c&quot;&gt;
       &lt;rootTaskHierarchyElements type=&quot;sto.Task&quot; uuid=&quot;29e951fe-ffcf-46f8-ac05-6de02d53881f&quot;&gt;
         &lt;isExplicit&gt;true&lt;/isExplicit&gt;
@@ -126,11 +206,23 @@
         &lt;isExecutable&gt;true&lt;/isExecutable&gt;
         &lt;orderIndex&gt;1&lt;/orderIndex&gt;
         &lt;rates type=&quot;sto.ClassicPeriodicDiscreteRate&quot; uuid=&quot;46d20626-50e0-4af5-8908-d79b9859f47c&quot;&gt;
+<<<<<<< Updated upstream
+=======
+>>>>>>> d8fe93d0735132b4394d298923e49b5c596820f4:Controller/PT testing for real/slprj/ert/test/tmwinternal/CompileInfo.xml
+>>>>>>> Stashed changes
           &lt;annotation&gt;D1&lt;/annotation&gt;
           &lt;clockId&gt;test::defaultTimer&lt;/clockId&gt;
           &lt;description&gt;Discrete 1&lt;/description&gt;
           &lt;taskId&gt;_task0&lt;/taskId&gt;
+<<<<<<< Updated upstream
           &lt;rateSpec type=&quot;sto.RateSpec&quot; uuid=&quot;67347068-5d49-4e16-83bb-a797bda5e127&quot;&gt;
+=======
+<<<<<<< HEAD:Controller/PT Testing/slprj/ert/testing/tmwinternal/CompileInfo.xml
+          &lt;rateSpec type=&quot;sto.RateSpec&quot; uuid=&quot;9bc9353e-8ed2-4212-93b6-3e4fe969cb7c&quot;&gt;
+=======
+          &lt;rateSpec type=&quot;sto.RateSpec&quot; uuid=&quot;67347068-5d49-4e16-83bb-a797bda5e127&quot;&gt;
+>>>>>>> d8fe93d0735132b4394d298923e49b5c596820f4:Controller/PT testing for real/slprj/ert/test/tmwinternal/CompileInfo.xml
+>>>>>>> Stashed changes
             &lt;period&gt;.1&lt;/period&gt;
             &lt;rateType&gt;ClassicPeriodicDiscrete&lt;/rateType&gt;
           &lt;/rateSpec&gt;
@@ -141,22 +233,46 @@
         &lt;identifier&gt;_task0&lt;/identifier&gt;
         &lt;priority&gt;40&lt;/priority&gt;
       &lt;/rootTaskHierarchyElements&gt;
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD:Controller/PT Testing/slprj/ert/testing/tmwinternal/CompileInfo.xml
+      &lt;taskDependencyGraph type=&quot;sto.SerializedTaskConnectionList&quot; uuid=&quot;8d24cdca-9d93-4299-955a-486676892aec&quot;&gt;
+        &lt;clockIdentifier&gt;testing::defaultTimer&lt;/clockIdentifier&gt;
+=======
+>>>>>>> Stashed changes
       &lt;taskDependencyGraph type=&quot;sto.SerializedTaskConnectionList&quot; uuid=&quot;ce3bb346-42e6-463c-9ff7-68f090a9a980&quot;&gt;
         &lt;clockIdentifier&gt;ParameterChangeEvent&lt;/clockIdentifier&gt;
         &lt;taskIdentifier&gt;ModelWideParameterChangeEvent&lt;/taskIdentifier&gt;
       &lt;/taskDependencyGraph&gt;
       &lt;taskDependencyGraph type=&quot;sto.SerializedTaskConnectionList&quot; uuid=&quot;ce2349c6-bd2e-4556-ad4c-e894920f6e64&quot;&gt;
         &lt;clockIdentifier&gt;test::defaultTimer&lt;/clockIdentifier&gt;
+<<<<<<< Updated upstream
+=======
+>>>>>>> d8fe93d0735132b4394d298923e49b5c596820f4:Controller/PT testing for real/slprj/ert/test/tmwinternal/CompileInfo.xml
+>>>>>>> Stashed changes
         &lt;taskIdentifier&gt;_task0&lt;/taskIdentifier&gt;
       &lt;/taskDependencyGraph&gt;
       &lt;taskPriorityDirection&gt;HighNumberLast&lt;/taskPriorityDirection&gt;
     &lt;/taskRegistry&gt;
   &lt;/sto.Registry&gt;
 &lt;/slexec_sto&gt;</timingAndTaskingRegistry>
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD:Controller/PT Testing/slprj/ert/testing/tmwinternal/CompileInfo.xml
+    <FMUBlockMap type="ModelRefInfoRepo.FMUBlockInfo" uuid="ec4acbe4-58e8-4554-b3f3-11544a488eaa"/>
+    <codeGenInfo type="ModelRefInfoRepo.CodeGenInformation" uuid="d6e5553a-f7b6-484d-8ed7-2cd4efcc921d"/>
+    <compiledVariantInfos type="ModelRefInfoRepo.CompiledVariantInfoMap" uuid="34c12c2a-8480-4082-827f-04eb7972f4dd"/>
+    <configSettingsForConsistencyChecks type="ModelRefInfoRepo.ConfigSettingsForConsistencyChecks" uuid="cdd606a2-b6e0-4b35-8ecd-9207d25b7f55">
+=======
+>>>>>>> Stashed changes
     <FMUBlockMap type="ModelRefInfoRepo.FMUBlockInfo" uuid="af047fd7-ed02-4466-a099-f883c0fccdf7"/>
     <codeGenInfo type="ModelRefInfoRepo.CodeGenInformation" uuid="ab4eadc9-df18-4f46-bd58-97b89b7d26be"/>
     <compiledVariantInfos type="ModelRefInfoRepo.CompiledVariantInfoMap" uuid="48426e2d-566c-4097-9d43-99e9d007f7cd"/>
     <configSettingsForConsistencyChecks type="ModelRefInfoRepo.ConfigSettingsForConsistencyChecks" uuid="754325d4-e3b8-4fca-aa69-fb7d037dad74">
+<<<<<<< Updated upstream
+=======
+>>>>>>> d8fe93d0735132b4394d298923e49b5c596820f4:Controller/PT testing for real/slprj/ert/test/tmwinternal/CompileInfo.xml
+>>>>>>> Stashed changes
       <consistentOutportInitialization>true</consistentOutportInitialization>
       <dateTimeAtTZero>0.0</dateTimeAtTZero>
       <dateTimeAtTZero>0.0</dateTimeAtTZero>
@@ -171,7 +287,15 @@
       <simSIMDOptimization>1</simSIMDOptimization>
       <solverName>FixedStepDiscrete</solverName>
       <solverType>SOLVER_TYPE_FIXEDSTEP</solverType>
+<<<<<<< Updated upstream
       <hardwareSettings type="ModelRefInfoRepo.HardwareSettings" uuid="431a45ae-6249-4689-9609-b19e4318696c">
+=======
+<<<<<<< HEAD:Controller/PT Testing/slprj/ert/testing/tmwinternal/CompileInfo.xml
+      <hardwareSettings type="ModelRefInfoRepo.HardwareSettings" uuid="df5b490e-7356-4aa3-87ae-1aa09e50d14e">
+=======
+      <hardwareSettings type="ModelRefInfoRepo.HardwareSettings" uuid="431a45ae-6249-4689-9609-b19e4318696c">
+>>>>>>> d8fe93d0735132b4394d298923e49b5c596820f4:Controller/PT testing for real/slprj/ert/test/tmwinternal/CompileInfo.xml
+>>>>>>> Stashed changes
         <prodBitPerChar>8</prodBitPerChar>
         <prodBitPerDouble>64</prodBitPerDouble>
         <prodBitPerFloat>32</prodBitPerFloat>
@@ -188,6 +312,33 @@
         <prodWordSize>8</prodWordSize>
       </hardwareSettings>
     </configSettingsForConsistencyChecks>
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD:Controller/PT Testing/slprj/ert/testing/tmwinternal/CompileInfo.xml
+    <controllableInputRatesMap type="ModelRefInfoRepo.VarTsUIDMap" uuid="5a2181cd-1f45-4051-b0d9-500dc552eec9"/>
+    <controllableOutputRatesMap type="ModelRefInfoRepo.VarTsUIDMap" uuid="c67aea59-351e-490d-8168-348e1655901d"/>
+    <dataPortGroup type="ModelRefInfoRepo.DataPortGroup" uuid="f8978612-7f1b-4d34-bd87-f8fb75132235"/>
+    <expFcnUnconnectedDataPortGroup type="ModelRefInfoRepo.DataPortGroup" uuid="403abb15-4bf9-41cb-9e05-21d5f6082c4c"/>
+    <interfaceParameterInfo type="ModelRefInfoRepo.InterfaceParameterInfo" uuid="ddb5215f-de9c-47b5-a97e-0b67ed720331"/>
+    <messageInfo type="ModelRefInfoRepo.MessageInformation" uuid="53dda245-86cf-4ba0-9aa4-293f65ba3b81"/>
+    <methodInfo type="ModelRefInfoRepo.MethodExistenceInfo" uuid="85bcc952-a151-487d-91e2-a7fcd19b16ab"/>
+    <periodicEventPortUnsupportedBlockInfo type="ModelRefInfoRepo.PeriodicEventPortUnsupportedBlockInfo" uuid="938e0043-4743-4a5b-bfbb-e5a880f395c0"/>
+    <portGroupsRequireSameRate type="ModelRefInfoRepo.PortGroupsRequireSameRate" uuid="5518c93e-73ac-4ea5-a750-239a626ce436">
+      <DSMPortGroups type="ModelRefInfoRepo.NameToPortGroupIdxVectMap" uuid="07cb11be-d271-4563-ae1d-06b339ea5c6a"/>
+      <GlobalDSMPortGroups type="ModelRefInfoRepo.NameToPortGroupIdxVectMap" uuid="7ce881c4-3764-4915-9622-3af1be1adb28"/>
+      <mergedPortGroups type="ModelRefInfoRepo.NameToPortGroupIdxVectMap" uuid="f09c7d8c-362b-4bf0-bdd1-27f3e1937886"/>
+    </portGroupsRequireSameRate>
+    <rateBasedMdlGlobalDSMRateSpec type="ModelRefInfoRepo.GlobalDSMRateSpecMap" uuid="44708fc7-19e4-463a-8838-584d7522d9e7"/>
+    <rateSpecOfGlobalDSMAccessedByDescExpFcnMdlMap type="ModelRefInfoRepo.GlobalDSMRateSpecMap" uuid="7461c986-566e-4489-9809-0d9b565bfb4b"/>
+    <rootBlockDiagramInterface type="ci.Model" uuid="2ff0d46c-5725-46ae-826a-e080d8ac2954">
+      <p_RootComponentInterface type="ci.ComponentInterface" uuid="79ff711e-90e2-482f-9023-6be3e860fe7e">
+        <p_Name>testing</p_Name>
+        <p_Type>ROOT</p_Type>
+      </p_RootComponentInterface>
+    </rootBlockDiagramInterface>
+    <simulinkFunctions type="ModelRefInfoRepo.SimulinkFunctions" uuid="8b4685ca-1b06-49b6-915a-0f0cfcea773a">
+=======
+>>>>>>> Stashed changes
     <controllableInputRatesMap type="ModelRefInfoRepo.VarTsUIDMap" uuid="0eb35c6f-0a61-498f-aea7-3e24784bc546"/>
     <controllableOutputRatesMap type="ModelRefInfoRepo.VarTsUIDMap" uuid="53d85140-baf0-4337-916e-f0f1f936022f"/>
     <dataPortGroup type="ModelRefInfoRepo.DataPortGroup" uuid="76fcd377-0a2f-475c-abf1-a5ba9caa1efe"/>
@@ -210,6 +361,10 @@
       </p_RootComponentInterface>
     </rootBlockDiagramInterface>
     <simulinkFunctions type="ModelRefInfoRepo.SimulinkFunctions" uuid="db7624f9-3cc1-4586-807a-77c1df622c0d">
+<<<<<<< Updated upstream
+=======
+>>>>>>> d8fe93d0735132b4394d298923e49b5c596820f4:Controller/PT testing for real/slprj/ert/test/tmwinternal/CompileInfo.xml
+>>>>>>> Stashed changes
       <compSimulinkFunctionCatalog></compSimulinkFunctionCatalog>
     </simulinkFunctions>
     <sltpContext type="sltp.mm.core.Context" uuid="9205ee00-d6a4-4c38-b489-13fd767501ec">
@@ -248,6 +403,24 @@
         </subgraph>
       </rootTask>
     </sltpContext>
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD:Controller/PT Testing/slprj/ert/testing/tmwinternal/CompileInfo.xml
+    <stateWriterToOwnerMap type="ModelRefInfoRepo.StateWriterInfo" uuid="b7853f08-7c09-4bc5-8b4a-59d61dbd0e9a"/>
+    <stoClientDataRegistry type="sto.ClientDataRegistry" uuid="bfec935d-981f-451b-bfdc-84d62679e00d">
+      <dataSets type="sto.ClientClockNamedDataSet" uuid="ec7497ac-89c9-4600-8c29-981fdca3fdad">
+        <tag>sltpEvents</tag>
+      </dataSets>
+      <dataSets type="sto.ClientTaskHierarchyElementNamedDataSet" uuid="a31ab65b-2366-405a-8d0f-f10373f6e3ae">
+        <tag>sltpTaskGroups</tag>
+      </dataSets>
+      <dataSets type="sto.ClientTaskHierarchyElementNamedDataSet" uuid="0e7b79cf-d377-4e98-8db1-471c99b39bcb">
+        <dSet type="ModelRefInfoRepo.SltpTaskData" uuid="4eae8075-99fe-4a88-800f-f5524f45031f"/>
+        <tSet type="ModelRefInfoRepo.SltpTaskData" uuid="4eae8075-99fe-4a88-800f-f5524f45031f">
+          <dataName>D1</dataName>
+          <linkedSet type="sto.ClientTaskHierarchyElementNamedDataSet" uuid="0e7b79cf-d377-4e98-8db1-471c99b39bcb"/>
+=======
+>>>>>>> Stashed changes
     <stateWriterToOwnerMap type="ModelRefInfoRepo.StateWriterInfo" uuid="8cb20d62-8f28-4ac1-9de6-bf9107bc2d13"/>
     <stoClientDataRegistry type="sto.ClientDataRegistry" uuid="e4033c65-5f8d-424a-a6a9-80af461a1292">
       <dataSets type="sto.ClientClockNamedDataSet" uuid="0b457037-15bf-4fa7-97e1-96d88582879c">
@@ -261,6 +434,10 @@
         <tSet type="ModelRefInfoRepo.SltpTaskData" uuid="6c25a330-d56e-4af4-a98e-889409a61ebc">
           <dataName>D1</dataName>
           <linkedSet type="sto.ClientTaskHierarchyElementNamedDataSet" uuid="b5e93502-f89d-4944-ad4b-51ea62d7fdcb"/>
+<<<<<<< Updated upstream
+=======
+>>>>>>> d8fe93d0735132b4394d298923e49b5c596820f4:Controller/PT testing for real/slprj/ert/test/tmwinternal/CompileInfo.xml
+>>>>>>> Stashed changes
           <id type="sto.TaskHierarchyElementId">
             <clockId>test::defaultTimer</clockId>
             <id>_task0</id>
@@ -269,6 +446,14 @@
         <tag>sltpTasks</tag>
       </dataSets>
     </stoClientDataRegistry>
+<<<<<<< Updated upstream
     <varTsUIDMap type="ModelRefInfoRepo.VarTsUIDMap" uuid="b47b6039-f716-4d65-8038-23f9b9fbfb2d"/>
+=======
+<<<<<<< HEAD:Controller/PT Testing/slprj/ert/testing/tmwinternal/CompileInfo.xml
+    <varTsUIDMap type="ModelRefInfoRepo.VarTsUIDMap" uuid="eba38fab-a730-40be-b562-b7f928318949"/>
+=======
+    <varTsUIDMap type="ModelRefInfoRepo.VarTsUIDMap" uuid="b47b6039-f716-4d65-8038-23f9b9fbfb2d"/>
+>>>>>>> d8fe93d0735132b4394d298923e49b5c596820f4:Controller/PT testing for real/slprj/ert/test/tmwinternal/CompileInfo.xml
+>>>>>>> Stashed changes
   </ModelRefInfoRepo.ModelRefInfoRoot>
 </MF0>
