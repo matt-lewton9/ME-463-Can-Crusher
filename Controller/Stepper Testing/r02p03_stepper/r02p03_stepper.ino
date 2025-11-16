@@ -25,7 +25,10 @@ void setup()
   pinMode(stp3, OUTPUT);
   pinMode(dir3, OUTPUT);
 
-  
+  Serial.begin(9600);
+  Serial.print("Begin\n");
+
+
 }
 void loop() // test loop to load and drop balls
 {
@@ -34,6 +37,7 @@ void loop() // test loop to load and drop balls
   stepper(0, STEPS_ALL, stp2, dir2, SPEED_ALL);
   stepper(0, STEPS_ALL, stp3, dir3, SPEED_ALL);
 
+  Serial.print("STEP\n");
   delay(1000);
  
 }
