@@ -1,0 +1,20 @@
+function [F1, F2, F3] = act_loads(F, M, theta)
+    R_spacing = 10; % inches
+
+    theta = deg2rad(theta);
+    n = [cos(theta) sin(theta) 0];
+    
+    P = R_spacing .* [0 1 0; -sqrt(3)/2 -1/2 0; sqrt(3)/2 -1/2 0];
+    
+    r1 = P(1,:);
+    r2 = P(2,:);
+    r3 = P(3,:);
+        
+    F_out = rref([1 1 1 F; r1(2) r2(2) r3(2) M*n(1); r1(1) r2(1) r3(1) M*(n(2))]);
+    
+    F1 = F_out(1,end);
+    F2 = F_out(2,end);
+    F3 = F_out(3,end);
+
+
+end

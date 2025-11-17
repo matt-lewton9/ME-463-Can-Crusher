@@ -1,0 +1,172 @@
+clc;
+close all;
+
+%% Load Customer Inputs
+cust_inputs = readmatrix("customer_inputs.xlsx"); % import customer data
+cust_inputs = cust_inputs(:,2:end); % trim 1st col
+
+steps = cust_inputs(1,:);
+compress_steps = cust_inputs(2,:);
+bending_steps = cust_inputs(3,:);
+bending_angle_steps = cust_inputs(4,:);
+ramp_steps = cust_inputs(5,:);
+hold_steps = cust_inputs(6,:);
+
+
+%% CONTROLLER INPUTS
+CONT_FREQ = rateControl(10); % hz, desired controller frequency
+TGT_LIM = 0.05; % +/- 5% within target value "reached target"
+ABT_LIM = 1.20; % 20% Deviation above commanded press to trigger abort
+
+%% Set Up State Machine
+STATE_0 = 100; % START STATE
+STATE_1 = 101; % MOVE TO TGT LOAD STATE
+STATE_2 = 102; % COMMANDED HOLD STATE
+STATE_3 = 103; % SAFETY STOP STATE
+
+% Input Variables
+TP = 0; % OUTSIDE TARGET PRESSURE?
+SP = 0; % OUTSIDE SAFE PRESSURE?
+AHD = 0; % AUTO HOLD COMMANDED?
+MHD = 0; % MANUAL HOLD COMMANDED?
+ST = 0; % START COMMAND
+
+HD = max(AHD,MHD); % HOLD Var for holds in general
+
+% Output Variables
+MV = 0; % MOVE TO TARGET PRESSURE
+CY = 0; % CYCLE TO NEXT STEP
+
+state = STATE_0; % init to start state
+step_ind = 2; % Step index variable
+tgt_pct = .05; %running pct of commanded load
+
+% Zero regulators
+% stepper(1)
+% stepper(2)
+% stepper(3)
+% pause(30)
+
+%% LOOP
+while(1)
+   %tic
+    waitfor(CONT_FREQ); % set loop frequency
+    %toc
+%% INPUTS
+% Get inputs   
+
+    PTs = [0 0 0] ;% %UPDATE THIS FROM SERIAL
+    ST = 1; %GET FROM GUI INPUT;
+    MHD = 0; %GET FROM GUI INPUT;
+
+    F_command = act_loads(compress_steps(step_ind), bending_steps(step_ind), bending_angle_steps(step_ind));
+    F_meas = PTs .* 3.776; %Force = press * bore area
+    F_pct = F_meas./F_command; %pct of total press
+
+    if allbetween(F_pct, tgt_pct-TGT_LIM, tgt_pct+TGT_LIM) %if all are within target pct, increment target pct
+        tgt_pct = tgt_pct + TGT_LIM;
+    end
+
+
+% Set Input Variables    
+    %if all at Target pressure
+    if allbetween(F_pct, 1-TGT_LIM, 1+TGT_LIM) 
+        TP = 0;
+    else
+        TP = 1;
+    end
+    
+    %if any at abort pressure above limit, abort
+    if any(F_pct>1+ABT_LIM) 
+        SP = 1;
+    else
+        SP = 0;
+    end
+    
+if(AHD) %if auto hold on
+    ahd_now = tic;
+    if ((ahd_now - ahd_start) >= hold_steps(step_ind)) % if auto hold over
+        AHD = 0; % turn off hold
+    end
+end
+
+HD = max(AHD,MHD); % HOLD Var for all holds
+
+
+%% Case Switch
+switch(state)
+    
+    case STATE_0 %START STATE
+        % State conditionals    
+        if(SP == 1) % if unsafe press
+            state = STATE_3;
+        elseif(ST == 0) % else if test is not started
+            state = STATE_0; 
+        elseif(TP == 1 && HD == 0) % If outside TP and no man hold
+            state = STATE_1;
+        else
+            state = STATE_2;
+        end
+        % State outputs    
+        MV = 0;
+        CY = 0;
+    
+    case STATE_1 % MOVE STATE
+        % State conditionals    
+        if(SP == 1) % if unsafe press
+            state = STATE_3;
+        elseif(TP == 1 && HD ==0) % else if outside TP and NO Hold
+            state = STATE_1;
+            AHD = 1; % start auto hold
+            ahd_start = tic;
+        else
+            state = STATE_2; %else, go to hold
+        end
+        % State outputs    
+        MV = 1;
+        CY = 0;
+        
+
+    case STATE_2 % HOLD STATE
+        % State conditionals    
+        if(SP == 1) % if unsafe press
+            state = STATE_3;
+        elseif(HD == 0) % else if NO Hold, go back to Move state
+            state = STATE_1;
+        else
+            state = STATE_2; %else, stay in hold
+        end
+        % State outputs    
+        MV = 0;
+        
+        if(AHD==1) %Cycle only if auto hold
+            CY = 1;
+        else
+            CY = 0;
+        end
+     
+
+    case STATE_3 % % STOP STATE
+        % State conditionals    
+        state = STATE_3; %STAY IN ABORT FOREVER
+
+        % State outputs    
+        MV = 0;
+        CY = 0;
+end
+
+%% OUTPUTS
+
+    if (CY == 1) %if CY, cycle step ct
+    step_ind = step_ind+1;
+    end
+
+    if (MV == 1) %if MV, move steppers in desired direction
+        step_dir = sign((F_command.*F_pct) - F_meas);
+    % stepper(1)
+    % stepper(2)
+    % stepper(3)
+    end
+
+
+end 
