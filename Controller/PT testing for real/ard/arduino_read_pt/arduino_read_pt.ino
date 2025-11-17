@@ -1,8 +1,12 @@
 #include <Wire.h>
 
+// defs
+#define LED_PIN 52
+#define MUX_ADDR 0x70
+
 void setup() {
   // put your setup code here, to run once:
-  pinMode(52, OUTPUT);
+  pinMode(LED_PIN, OUTPUT);
   // Setup serial
   Serial.begin(115200);
   while (!Serial) {
@@ -15,12 +19,24 @@ void setup() {
 void loop() {
   int32_t raw_pressure;
 
-  if (Serial.read() == (char) 49) {
-    digitalWrite(52, 1);
+  if (1) {
+    digitalWrite(LED_PIN, 1);
+
+    mux_select(0);
     read_PT(&raw_pressure);
-    Serial.print(String(raw_pressure,10) + "\n");
-    digitalWrite(52, 0);
+    Serial.print("PT1: " + String(raw_pressure,10) + "\n");
+
+    mux_select(1);
+    read_PT(&raw_pressure);
+    Serial.print("PT2: " + String(raw_pressure,10) + "\n");
+
+    mux_select(2);
+    read_PT(&raw_pressure);
+    Serial.print("PT3: " + String(raw_pressure,10) + "\n\n");
+
+    digitalWrite(LED_PIN, 0);
   }
+  delay(150);
 
 }
 
@@ -59,4 +75,10 @@ int read_PT(int32_t *raw_pressure) {
   //Serial.print(String(raw_pressure) + "\n");
 }
 
-// void send_int32(int32_t data)
+void mux_select(uint8_t i) {
+  if (i > 7) return;
+ 
+  Wire.beginTransmission(MUX_ADDR);
+  Wire.write(1 << i);
+  Wire.endTransmission();  
+}
