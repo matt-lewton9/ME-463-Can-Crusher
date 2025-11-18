@@ -1,3 +1,5 @@
+== Read Sensors ==
+
 MACHINE  DATA  FORMAT
 
 MATLAB   0x01  binary
@@ -9,6 +11,8 @@ ARDUINO  PT3   ASCII raw int
 ARDUINO  SG1   ASCII raw int
 ARDUINO  SG2   ASCII raw int
 ARDUINO  SG3   ASCII raw int
+
+== Write Motors ==
 
 MATLAB   0x02  binary
 ARDUINO  0x02  binary
