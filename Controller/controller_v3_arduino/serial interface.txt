@@ -2,20 +2,22 @@
 
 MACHINE  DATA  FORMAT
 
-MATLAB   0x01  binary
-ARDUINO  0x01  binary
+MATLAB   "1"     binary
+ARDUINO  "1"     binary
 
-ARDUINO  PT1   ASCII raw int
-ARDUINO  PT2   ASCII raw int
-ARDUINO  PT3   ASCII raw int
-ARDUINO  SG1   ASCII raw int
-ARDUINO  SG2   ASCII raw int
-ARDUINO  SG3   ASCII raw int
+ARDUINO  PT1\n   ASCII raw int newline terminated
+ARDUINO  PT2\n   ASCII raw int newline terminated
+ARDUINO  PT3\n   ASCII raw int newline terminated
+ARDUINO  SG1\n   ASCII raw int newline terminated
+ARDUINO  SG2\n   ASCII raw int newline terminated
+ARDUINO  SG3\n   ASCII raw int newline terminated
 
 == Write Motors ==
 
-MATLAB   0x02  binary
-ARDUINO  0x02  binary
+MACHINE  DATA  FORMAT
+
+MATLAB   "2"   binary
+ARDUINO  "2"   binary
 MATLAB   M1    single byte int8
 MATLAB   M2    single byte int8
 MATLAB   M3    single byte int8

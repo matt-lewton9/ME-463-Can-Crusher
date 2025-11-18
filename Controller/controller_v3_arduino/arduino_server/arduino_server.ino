@@ -14,26 +14,26 @@
 #define SG3_DATA
 
 // Steper Motors
-#define M1_IN1
-#define M1_IN2
-#define M1_IN3
-#define M1_IN4
-#define M2_IN1
-#define M2_IN2
-#define M2_IN3
-#define M2_IN4
-#define M3_IN1
-#define M3_IN2
-#define M3_IN3
-#define M3_IN4
+#define M1_DIR
+#define M1_PUL
+#define M2_DIR
+#define M2_PUL
+#define M3_DIR
+#define M3_PUL
 
 // Serial
 #define BAUD 115200
 
 
 // vars
-uint8_t cmd = 0;
+char cmd = 0;
+int32_t PT1_raw;
+int32_t PT2_raw;
+int32_t PT3_raw;
 
+
+
+// Setup
 void setup() {
   // Setup serial
   Serial.begin(BAUD);
@@ -43,26 +43,42 @@ void setup() {
   Wire.begin();
 }
 
+// Loop
 void loop() {
-  int32_t raw_pressure;
+
+  // read in command from matlab
   cmd = Serial.read();
-  if (cmd ==49) {
-    // send response
-    Serial.write(0x01);
+
+  if (cmd == "1") { // read sensors
+    // send ack
+    Serial.write("1");
 
     // read sensors, print 
     mux_select(0);
-    read_pt(&raw_pressure);
-    Serial.print(String(raw_pressure,10) + "\n");
+    read_pt(&PT1_raw);
+    Serial.print(String(PT1_raw,10) + "\n");
 
     mux_select(1);
-    read_pt(&raw_pressure);
-    Serial.print(String(raw_pressure,10) + "\n");
+    read_pt(&PT2_raw);
+    Serial.print(String(PT2_raw,10) + "\n");
 
     mux_select(2);
-    read_pt(&raw_pressure);
-    Serial.print(String(raw_pressure,10) + "\n\n");
+    read_pt(&PT3_raw);
+    Serial.print(String(PT3_raw,10) + "\n");
   }
+  if (cmd == "2") { // recive motor commands
+    // send ack
+    Serial.write("2")
+
+    // recive motor commands
+  }
+}
+
+void drive_stepper(int8_t M1_steps, int8_t M2_steps, int8_t M3_steps) {
+  digitalWrite(M1_PUL, HIGH);
+  delayMicroseconds(500);
+  digitalWrite(M1_PUL, LOW);
+  delayMicroseconds(500);
 }
 
 uint8_t read_pt(int32_t *raw_pressure) {
