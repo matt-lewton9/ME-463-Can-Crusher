@@ -22,6 +22,8 @@ ABT_LIM = 1.20; % 20% Deviation above commanded press to trigger abort
 GAIN = 10; %Gain for porportional controller
 MAX_STEPS = 10; %Max steps for controller to command
 CYLIDNER_AREA = 3.776;
+COM_PORT = "COM3";
+BAUD_RATE = 115200;
 
 %% Set Up State Machine
 STATE_0 = 100; % START STATE
@@ -54,6 +56,9 @@ tgt_pct = 0; %running pct of commanded load
 
 load_ramp_timer = tic; % start timer for beginning of program
 load_ramp_start = toc(load_ramp_timer);
+
+%% Init arduino connection
+s = serialport(COM_PORT, 115200);
 
 %% Initiate plotting
 plot_timer = tic;
@@ -107,8 +112,6 @@ s2 =subplot(num_subplots,1,2, 'Parent', left);
         legend("SG 1","SG 1","SG 1", 'Location','northwest')
         title(s2, "Strain Data")
 
-
-
 %Buttons
 
 g = uigridlayout(right, [4 1]);
@@ -130,14 +133,11 @@ while(step_ind <= numel(steps))
 %% INPUTS
 % Get inputs   
 
-    % PT_Reading = [0; 0; 0] ;% %UPDATE THIS FROM SERIAL
-    SG_Reading = [0; 0; 0] ;% %UPDATE THIS FROM SERIAL
+    [PT1 PT2 PT3 SG1 SG2 SG3] = sensors_read(s);
+
+    PT_Reading = [PT1; PT2; PT3] ;% read from serial
+    SG_Reading = [SG1; SG2; SG3] ;% read from serial
     
-    if(ST == 1)
-        PT_Reading = (PTs(:,end).*[1; 1.01; 1.02]) + .01;
-    else
-        PT_Reading = [0; 0; 0] ;% %UPDATE THIS FROM SERIAL
-    end
 
     ST = ST_button.Value; %GET FROM GUI INPUT;
     MHD = HD_button.Value; % Manual Hold
