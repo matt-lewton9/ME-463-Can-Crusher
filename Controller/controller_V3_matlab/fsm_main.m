@@ -22,7 +22,7 @@ ABT_LIM = 1.20; % 20% Deviation above commanded press to trigger abort
 GAIN = 10; %Gain for porportional controller
 MAX_STEPS = 10; %Max steps for controller to command
 CYLIDNER_AREA = 3.776;
-COM_PORT = "COM3";
+COM_PORT = "COM6";
 BAUD_RATE = 115200;
 
 %% Set Up State Machine
@@ -133,10 +133,13 @@ while(step_ind <= numel(steps))
 %% INPUTS
 % Get inputs   
 
-    [PT1 PT2 PT3 SG1 SG2 SG3] = sensors_read(s);
+    [PT1 PT2 PT3] = sensors_read(s);
+        
+    % [SG1 SG2 SG3]
+     SGs = [0 0 0];
 
-    PT_Reading = [PT1; PT2; PT3] ;% read from serial
-    SG_Reading = [SG1; SG2; SG3] ;% read from serial
+    PT_Reading = [PT1; PT2; PT3] ./8./6894.7572932 ;% read from serial, PA to psi/8
+    SG_Reading = SGs;%[SG1; SG2; SG3] ;% read from serial
     
 
     ST = ST_button.Value; %GET FROM GUI INPUT;

@@ -46,7 +46,7 @@ void setup() {
 void loop() {
   int32_t raw_pressure;
   cmd = Serial.read();
-  if (cmd == 1) {
+  if (cmd ==49) {
     // send response
     Serial.write(0x01);
 

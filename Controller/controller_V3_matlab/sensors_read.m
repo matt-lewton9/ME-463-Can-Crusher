@@ -1,16 +1,14 @@
-function [PT1 PT2 PT3 SG1 SG2 SG3] = sensors_read(s)
+function [PT1, PT2, PT3] = sensors_read(s)
 
-write(s,0x01,"char") %poke arduino
-timer = tic;
-
-while((read(s,1,"char") ~= 0x01) && toc(timer) <0.001)
-end
+write(s,"1","uint8"); %poke arduino
+read(s,1,"uint8");
 
 PT1 = str2num(s.readline());
 PT2 = str2num(s.readline());
 PT3 = str2num(s.readline());
-SG1 = str2num(s.readline());
-SG2 = str2num(s.readline());
-SG3 = str2num(s.readline());
+read(s,1,"uint8"); % read newline
+% SG1 = str2num(s.readline());
+% SG2 = str2num(s.readline());
+% SG3 = str2num(s.readline());
 
 end
