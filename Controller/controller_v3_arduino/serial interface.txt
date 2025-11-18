@@ -1,3 +1,5 @@
+== Read Sensors ==
+
 MACHINE  DATA  FORMAT
 
 MATLAB   0x01  binary
@@ -10,9 +12,11 @@ ARDUINO  SG1   ASCII raw int
 ARDUINO  SG2   ASCII raw int
 ARDUINO  SG3   ASCII raw int
 
+== Write Motors ==
+
 MATLAB   0x02  binary
 ARDUINO  0x02  binary
-MATLAB   M1    ASCII int, sign for direction
-MATLAB   M2    ASCII int, sign for direction
-MATLAB   M3    ASCII int, sign for direction
+MATLAB   M1    single byte int8
+MATLAB   M2    single byte int8
+MATLAB   M3    single byte int8
 
