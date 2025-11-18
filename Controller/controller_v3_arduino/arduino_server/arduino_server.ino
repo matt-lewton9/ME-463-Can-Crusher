@@ -29,6 +29,11 @@
 
 // Serial
 #define BAUD 115200
+
+
+// vars
+uint8_t cmd = 0;
+
 void setup() {
   // Setup serial
   Serial.begin(BAUD);
@@ -40,8 +45,8 @@ void setup() {
 
 void loop() {
   int32_t raw_pressure;
-
-  if (1) {
+  cmd = Serial.read();
+  if (cmd == 1) {
     mux_select(0);
     read_pt(&raw_pressure);
     Serial.print("PT1: " + String(raw_pressure,10) + "\n");
@@ -54,7 +59,6 @@ void loop() {
     read_pt(&raw_pressure);
     Serial.print("PT3: " + String(raw_pressure,10) + "\n\n");
   }
-  delay(150);
 }
 
 uint8_t read_pt(int32_t *raw_pressure) {
