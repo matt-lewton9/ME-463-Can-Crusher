@@ -47,17 +47,21 @@ void loop() {
   int32_t raw_pressure;
   cmd = Serial.read();
   if (cmd == 1) {
+    // send response
+    Serial.write(0x01);
+
+    // read sensors, print 
     mux_select(0);
     read_pt(&raw_pressure);
-    Serial.print("PT1: " + String(raw_pressure,10) + "\n");
+    Serial.print(String(raw_pressure,10) + "\n");
 
     mux_select(1);
     read_pt(&raw_pressure);
-    Serial.print("PT2: " + String(raw_pressure,10) + "\n");
+    Serial.print(String(raw_pressure,10) + "\n");
 
     mux_select(2);
     read_pt(&raw_pressure);
-    Serial.print("PT3: " + String(raw_pressure,10) + "\n\n");
+    Serial.print(String(raw_pressure,10) + "\n\n");
   }
 }
 
