@@ -1,4 +1,4 @@
-function [F1, F2, F3] = act_loads(F, M, theta)
+function F_command = act_loads(F, M, theta)
     R_spacing = 10; % inches
 
     theta = deg2rad(theta);
@@ -16,5 +16,5 @@ function [F1, F2, F3] = act_loads(F, M, theta)
     F2 = F_out(2,end);
     F3 = F_out(3,end);
 
-
+    F_command = F_out(:,end)';
 end
