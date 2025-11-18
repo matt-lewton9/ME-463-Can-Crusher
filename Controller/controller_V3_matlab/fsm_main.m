@@ -62,6 +62,7 @@ PTs = [0;0;0];
 SGs = [0;0;0];
 AHD_timer = plot_timer;
 AHD_start = 0;
+F_command = [0 0 0];
 
 fig = figure(1);
 
@@ -78,11 +79,11 @@ s1 = subplot(num_subplots,1,1, 'Parent', left);
         hold on
     PT3_plot = plot(times, PTs(3,:), 'Color',"#C233FF");
         hold on
-    PT1_tgt_plot = plot(times, PTs(1,:).*tgt_pct,'--', 'Color',"#33C5FF");
-        hold on
-    PT2_tgt_plot = plot(times, PTs(2,:).*tgt_pct,'--', 'Color',"#FFA333");
-        hold on
-    PT3_tgt_plot = plot(times, PTs(3,:).*tgt_pct,'--', 'Color',"#C233FF");
+    % PT1_tgt_plot = plot(times, F_command(1).*tgt_pct./CYLIDNER_AREA,'--', 'Color',"#33C5FF");
+    %     hold on
+    % PT2_tgt_plot = plot(times, F_command(2).*tgt_pct./CYLIDNER_AREA,'--', 'Color',"#FFA333");
+    %     hold on
+    % PT3_tgt_plot = plot(times, F_command(3).*tgt_pct./CYLIDNER_AREA,'--', 'Color',"#C233FF");
         hold on
     ylabel("Pressure [psi]")
         
@@ -90,7 +91,7 @@ s1 = subplot(num_subplots,1,1, 'Parent', left);
     F1_plot = plot(times, max(PTs,[],1).*CYLIDNER_AREA,'LineStyle','none');
     xlabel("Time [s]")
     ylabel("Force [lbf]")
-    legend("PT 1","PT 2","PT 3", "Target Press", 'Location','northwest')
+    legend("PT 1","PT 2","PT 3", 'Location','northwest')
     title(s1,"PT Data / Force Data")
 
 
@@ -267,12 +268,12 @@ end
     PT3_plot.XData = times;
     PT3_plot.YData = PTs(3,:);
     
-    PT1_tgt_plot.XData = times;
-    PT1_tgt_plot.YData = PTs(1,:).*tgt_pct;
-    PT2_tgt_plot.XData = times;
-    PT2_tgt_plot.YData = PTs(1,:).*tgt_pct;
-    PT3_tgt_plot.XData = times;
-    PT3_tgt_plot.YData = PTs(1,:).*tgt_pct;
+    % PT1_tgt_plot.XData = times;
+    % PT1_tgt_plot.YData = F_command(1).*tgt_pct./CYLIDNER_AREA;
+    % PT2_tgt_plot.XData = times;
+    % PT2_tgt_plot.YData = F_command(2).*tgt_pct./CYLIDNER_AREA;
+    % PT3_tgt_plot.XData = times;
+    % PT3_tgt_plot.YData = F_command(3).*tgt_pct./CYLIDNER_AREA;
 
     F1_plot.XData = times;
     F1_plot.YData = max(PTs,[],1).*CYLIDNER_AREA;
