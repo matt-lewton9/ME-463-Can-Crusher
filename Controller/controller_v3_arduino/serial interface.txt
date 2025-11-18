@@ -12,7 +12,7 @@ ARDUINO  SG3   ASCII raw int
 
 MATLAB   0x02  binary
 ARDUINO  0x02  binary
-MATLAB   M1    ASCII int, sign for direction
-MATLAB   M2    ASCII int, sign for direction
-MATLAB   M3    ASCII int, sign for direction
+MATLAB   M1    single byte int8
+MATLAB   M2    single byte int8
+MATLAB   M3    single byte int8
 
