@@ -1,5 +1,6 @@
 // Libraries
 #include <Wire.h>
+#include <math.h>
 
 // Pressure Transducers
 #define MUX_ADDR 0x70
@@ -16,10 +17,10 @@
 // Steper Motors
 #define M1_DIR 52
 #define M1_PUL 53
-#define M2_DIR 51
-#define M2_PUL 50
-#define M3_DIR 49
-#define M3_PUL 48
+#define M2_DIR 48
+#define M2_PUL 49
+#define M3_DIR 44
+#define M3_PUL 45
 
 // Serial
 #define BAUD 115200
@@ -45,6 +46,10 @@ void setup() {
   // Setup motor pins
   pinMode(M1_DIR, OUTPUT);
   pinMode(M1_PUL, OUTPUT);
+  digitalWrite(M1_DIR, LOW);
+  pinMode(M2_DIR, OUTPUT);
+  pinMode(M2_PUL, OUTPUT);
+  digitalWrite(M2_DIR, LOW);
 }
 
 // Loop
@@ -75,27 +80,49 @@ void loop() {
     Serial.write("2");
 
     // recive motor commands
-    while (Serial.available() <= 3);
-
-    //int steps1 = Serial.read();
-    //int steps2 = Serial.read();
-    //int steps3 = Serial.read();
-    //drive_stepper(steps1, steps2, steps3);
+    while (Serial.available() < 3);
+    int steps1 = Serial.read();
+    int steps2 = Serial.read();
+    int steps3 = Serial.read();
+    drive_stepper(steps1, steps2, steps3);
 
     //Serial.print(steps1);
   }
 }
 
 void drive_stepper(int M1_steps, int M2_steps, int M3_steps) {
-  digitalWrite(M1_DIR, LOW);
 
-  for (int i; i < 100; i++) {
-    digitalWrite(M1_PUL, HIGH);
+  int max_steps = fmax(fmax(M1_steps, M2_steps), M3_steps);
+  digitalWrite(M1_DIR, LOW);
+  digitalWrite(M2_DIR, LOW);
+  digitalWrite(M3_DIR, LOW);
+
+  for (int step = 0; step < max_steps; step++) {
+    // digitalWrite(M1_PUL, HIGH);
+    // delayMicroseconds(500);
+    // digitalWrite(M1_PUL, LOW);
+    // delayMicroseconds(500);
+    if (M1_steps > step) {
+      digitalWrite(M1_PUL, HIGH);
+    }
+    if (M2_steps > step) {
+      digitalWrite(M2_PUL, HIGH);
+    }
+    if (M3_steps > step) {
+      digitalWrite(M3_PUL, HIGH);
+    }  
     delayMicroseconds(500);
-    digitalWrite(M1_PUL, LOW);
+    if (M1_steps > step) {
+      digitalWrite(M1_PUL, LOW);
+    }
+    if (M2_steps > step) {
+      digitalWrite(M2_PUL, LOW);
+    }
+    if (M3_steps > step) {
+      digitalWrite(M3_PUL, LOW);
+    }
     delayMicroseconds(500);
   }
-
 }
 
 uint8_t read_pt(int32_t *raw_pressure) {
@@ -134,4 +161,11 @@ void mux_select(uint8_t i) {
   Wire.beginTransmission(MUX_ADDR);
   Wire.write(1 << i);
   Wire.endTransmission();  
+}
+
+void single_step(int pin_pul, int delay_ms) {
+    digitalWrite(pin_pul, HIGH);
+    delayMicroseconds(delay);
+    digitalWrite(pin_pul, LOW);
+    delayMicroseconds(delay);
 }
