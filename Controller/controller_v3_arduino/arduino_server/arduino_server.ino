@@ -27,10 +27,10 @@
 
 
 // vars
-uint8_t cmd = 0;
-int32_t PT1_raw;
-int32_t PT2_raw;
-int32_t PT3_raw;
+uint8_t cmd = 0; // command from matlab
+int32_t PT1_raw = 0;
+int32_t PT2_raw = 0;
+int32_t PT3_raw = 0;
 
 
 
@@ -79,23 +79,25 @@ void loop() {
     // send ack
     Serial.write("2");
 
-    // recive motor commands
-    while (Serial.available() < 3);
-    int steps1 = Serial.read();
-    int steps2 = Serial.read();
-    int steps3 = Serial.read();
-    drive_stepper(steps1, steps2, steps3);
-
-    //Serial.print(steps1);
+    // read motor commands
+    while (Serial.available() < 6);
+    int m1_dir = Serial.read();
+    int m1_steps = Serial.read();
+    int m2_dir = Serial.read();
+    int m2_steps = Serial.read();
+    int m3_dir = Serial.read();
+    int m3_steps = Serial.read();
+    // drive steppers
+    drive_stepper(m1_dir, m1_steps, m2_dir, m2_steps, m3_dir, m3_steps);
   }
 }
 
-void drive_stepper(int M1_steps, int M2_steps, int M3_steps) {
+void drive_stepper(int M1_dir, int M1_steps, int M2_dir, int M2_steps, int M3_dir, int M3_steps) {
 
   int max_steps = fmax(fmax(M1_steps, M2_steps), M3_steps);
-  digitalWrite(M1_DIR, LOW);
-  digitalWrite(M2_DIR, LOW);
-  digitalWrite(M3_DIR, LOW);
+  digitalWrite(M1_DIR, M1_dir);
+  digitalWrite(M2_DIR, M2_dir);
+  digitalWrite(M3_DIR, M3_dir);
 
   for (int step = 0; step < max_steps; step++) {
     // digitalWrite(M1_PUL, HIGH);

@@ -14,11 +14,13 @@ ARDUINO  SG3\n   ASCII raw int newline terminated
 
 == Write Motors ==
 
-MACHINE  DATA  FORMAT
+MACHINE  DATA      FORMAT
 
-MATLAB   "2"   binary
-ARDUINO  "2"   binary
-MATLAB   M1    single byte int8
-MATLAB   M2    single byte int8
-MATLAB   M3    single byte int8
-
+MATLAB   "2"       binary
+ARDUINO  "2"       binary
+MATLAB   M1_dir    single byte int8
+MATLAB   M1_steps  single byte int8
+MATLAB   M2_dir    single byte int8
+MATLAB   M2_steps  single byte int8
+MATLAB   M3_dir    single byte int8
+MATLAB   M3_steps  single byte int8
