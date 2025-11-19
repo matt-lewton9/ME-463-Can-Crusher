@@ -14,19 +14,19 @@
 #define SG3_DATA
 
 // Steper Motors
-#define M1_DIR
-#define M1_PUL
-#define M2_DIR
-#define M2_PUL
-#define M3_DIR
-#define M3_PUL
+#define M1_DIR 52
+#define M1_PUL 53
+#define M2_DIR 51
+#define M2_PUL 50
+#define M3_DIR 49
+#define M3_PUL 48
 
 // Serial
 #define BAUD 115200
 
 
 // vars
-char cmd = 0;
+uint8_t cmd = 0;
 int32_t PT1_raw;
 int32_t PT2_raw;
 int32_t PT3_raw;
@@ -41,6 +41,10 @@ void setup() {
 
   // Setup I2C
   Wire.begin();
+
+  // Setup motor pins
+  pinMode(M1_DIR, OUTPUT);
+  pinMode(M1_PUL, OUTPUT);
 }
 
 // Loop
@@ -49,7 +53,7 @@ void loop() {
   // read in command from matlab
   cmd = Serial.read();
 
-  if (cmd == "1") { // read sensors
+  if (cmd == 49) { // read sensors
     // send ack
     Serial.write("1");
 
@@ -66,19 +70,32 @@ void loop() {
     read_pt(&PT3_raw);
     Serial.print(String(PT3_raw,10) + "\n");
   }
-  if (cmd == "2") { // recive motor commands
+  if (cmd == 50) { // recive motor commands
     // send ack
-    Serial.write("2")
+    Serial.write("2");
 
     // recive motor commands
+    while (Serial.available() <= 3);
+
+    //int steps1 = Serial.read();
+    //int steps2 = Serial.read();
+    //int steps3 = Serial.read();
+    //drive_stepper(steps1, steps2, steps3);
+
+    //Serial.print(steps1);
   }
 }
 
-void drive_stepper(int8_t M1_steps, int8_t M2_steps, int8_t M3_steps) {
-  digitalWrite(M1_PUL, HIGH);
-  delayMicroseconds(500);
-  digitalWrite(M1_PUL, LOW);
-  delayMicroseconds(500);
+void drive_stepper(int M1_steps, int M2_steps, int M3_steps) {
+  digitalWrite(M1_DIR, LOW);
+
+  for (int i; i < 100; i++) {
+    digitalWrite(M1_PUL, HIGH);
+    delayMicroseconds(500);
+    digitalWrite(M1_PUL, LOW);
+    delayMicroseconds(500);
+  }
+
 }
 
 uint8_t read_pt(int32_t *raw_pressure) {

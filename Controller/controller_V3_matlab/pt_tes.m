@@ -1,11 +1,8 @@
 clc;
 % clear;
 
-% s = serialport("COM6", 115200);
+% s = serialport("COM5", 115200);
 
-while(1)
-    [PT1 PT2 PT3] = sensors_read(s)
-    pause(0.1)
-end
+drive_steppers(s, 2, 4, 6);
 
 

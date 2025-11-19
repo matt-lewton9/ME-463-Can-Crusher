@@ -6,7 +6,6 @@ read(s,1,"uint8");
 PT1 = str2num(s.readline());
 PT2 = str2num(s.readline());
 PT3 = str2num(s.readline());
-read(s,1,"uint8"); % read newline
 % SG1 = str2num(s.readline());
 % SG2 = str2num(s.readline());
 % SG3 = str2num(s.readline());

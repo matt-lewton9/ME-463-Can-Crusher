@@ -21,7 +21,7 @@ TGT_STEP = 0.05; % pct to step up target load
 ABT_LIM = 1.20; % 20% Deviation above commanded press to trigger abort
 GAIN = 10; %Gain for porportional controller
 MAX_STEPS = 10; %Max steps for controller to command
-CYLIDNER_AREA = 3.776;
+CYLIDNER_AREA = (3.776^2)*pi / 4;
 COM_PORT = "COM6";
 BAUD_RATE = 115200;
 
