@@ -150,7 +150,7 @@ SP_button.Layout.Row = 3;
 gui_text = uilabel(g,"Text","");%,sprintf("Current Test Step: %d\nState: %d\nRamp Pct: %d %\n",steps(step_ind), state, tgt_pct.*100));
 lbl1.Text = "Text";
 
-    % PT1 = 0; INIT TEST DATA, COMMENT OUT
+    % PT1 = 0; %INIT TEST DATA, COMMENT OUT
     % PT2 = 0;
     % PT3 = 0;
 
@@ -163,7 +163,7 @@ while(step_ind <= numel(steps))
 
     [PT1 PT2 PT3] = sensors_read(s);
     
-    %FAKE DATA FOR TESTING, COMMENT OUT
+    % % FAKE DATA FOR TESTING, COMMENT OUT
     % PT1 = PT1 +100;
     % PT2 = PT2 +225;
     % PT3 = PT3 +350;
