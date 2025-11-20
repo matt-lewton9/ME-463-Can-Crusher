@@ -16,13 +16,13 @@ hold_steps = cust_inputs(6,:);
 
 %% CONTROLLER INPUTS
 CONT_FREQ = rateControl(10); % hz, desired controller frequency
-TGT_LIM = 0.05; % +/- 5% within target value "reached target"
-TGT_STEP = 0.05; % pct to step up target load
+TGT_LIM = 0.02; % +/- 5% within target value "reached target"
+TGT_STEP = 0.02; % pct to step up target load
 ABT_LIM = 1.20; % 20% Deviation above commanded press to trigger abort
-GAIN = .05; %Gain for porportional controller
-MAX_STEPS = 10; %Max steps for controller to command
+GAIN = .3; %Gain for porportional controller
+MAX_STEPS = 20; %Max steps for controller to command
 CYLINDER_AREA = (3.776^2)*pi / 4;
-COM_PORT = "COM5";
+COM_PORT = "/dev/tty.usbmodem14101";
 BAUD_RATE = 115200;
 
 %% Set Up State Machine
@@ -154,20 +154,23 @@ lbl1.Text = "Text";
     % PT2 = 0;
     % PT3 = 0;
 
+disp("waiting...")
+pause(1)
+disp("flushing...")
 for i = 1:10
     write(s,"3","uint8")
     pause(0.1);
 end
 
-disp("should have flushed")
+disp("should be flushed")
 
 try
-    [PT1, PT2, PT3] = sensors_read(s)
+    [~, ~, ~] = sensors_read(s);
 catch ERROR
     disp("Error in trevor.m")
 end
 
-disp("read pt once)")
+disp("read pt once")
 
 %% LOOP
 while(step_ind <= numel(steps))
@@ -176,7 +179,7 @@ while(step_ind <= numel(steps))
 %% INPUTS
 % Get inputs   
 
-    [PT1 PT2 PT3] = sensors_read(s);
+    [PT1 PT2 PT3] = sensors_read(s); % off by 2 error
     
     % % FAKE DATA FOR TESTING, COMMENT OUT
     % PT1 = PT1 +100;
@@ -186,7 +189,7 @@ while(step_ind <= numel(steps))
     % [SG1 SG2 SG3]
     SGs = [0 0 0];
 
-    PT_Reading = [PT1; PT2; PT3] ./8./6894.7572932 ;% read from serial, PA to psi/8
+    PT_Reading = [PT1; PT2; PT3] ./4./6894.7572932 ;% read from serial, PA to psi/8
     SG_Reading = SGs;%[SG1; SG2; SG3] ;% read from serial
     
 
