@@ -22,7 +22,7 @@ ABT_LIM = 1.20; % 20% Deviation above commanded press to trigger abort
 GAIN = .05; %Gain for porportional controller
 MAX_STEPS = 10; %Max steps for controller to command
 CYLINDER_AREA = (3.776^2)*pi / 4;
-COM_PORT = "/dev/tty.usbmodem14101";
+COM_PORT = "COM5";
 BAUD_RATE = 115200;
 
 %% Set Up State Machine
@@ -295,7 +295,7 @@ end
         end      
         
     F_diff = (F_command'.*tgt_pct) - F_meas; % diff from commanded force and measured force
-    steps_commanded = round(F_diff, TieBreaker="fromzero") .* GAIN; % gain times 
+    steps_commanded = ceil(abs(F_diff .* GAIN)) .* sign(F_diff); % gain times 
     idx = steps_commanded>MAX_STEPS; % cap max steps to MAX Steps
     steps_commanded(idx) = MAX_STEPS;
 
