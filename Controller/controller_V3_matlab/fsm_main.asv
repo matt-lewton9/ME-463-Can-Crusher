@@ -15,14 +15,14 @@ hold_steps = cust_inputs(6,:);
 
 
 %% CONTROLLER INPUTS
-CONT_FREQ = rateControl(10); % hz, desired controller frequency
-TGT_LIM = 0.05; % +/- 5% within target value "reached target"
-TGT_STEP = 0.05; % pct to step up target load
+CONT_FREQ = rateControl(10); % desired controller frequency [Hz]
+TGT_LIM = 0.02; % within target value "reached target" [% error]
+TGT_STEP = 0.02; % size of pressure step increments 
 ABT_LIM = 1.20; % 20% Deviation above commanded press to trigger abort
-GAIN = 10; %Gain for porportional controller
-MAX_STEPS = 10; %Max steps for controller to command
+GAIN = .3; %Gain for porportional controller
+MAX_STEPS = 20; %Max steps for controller to command
 CYLINDER_AREA = (3.776^2)*pi / 4;
-COM_PORT = "COM6";
+COM_PORT = "/dev/tty.usbmodem14101";
 BAUD_RATE = 115200;
 
 %% Set Up State Machine
@@ -30,6 +30,7 @@ STATE_0 = 100; % START STATE
 STATE_1 = 101; % MOVE TO TGT LOAD STATE
 STATE_2 = 102; % COMMANDED HOLD STATE
 STATE_3 = 103; % SAFETY STOP STATE
+state_names = dictionary([100 101 102 103], ["START" "MOVE" "HOLD" "STOP"]);
 
 % Input Variables
 TP = 0; % OUTSIDE TARGET PRESSURE?
@@ -54,7 +55,9 @@ load_step_timer = tic;
 load_step_start = toc(load_step_timer);
 
 %% Init arduino connection
-% s = serialport(COM_PORT, 115200);
+disp("Connecting to arduino on COM port " + COM_PORT + " ...")
+s = serialport(COM_PORT, 115200);
+disp("Connected")
 
 %% Initiate plotting
 plot_timer = tic;
@@ -71,7 +74,7 @@ left = uipanel(fig, 'Position', [0 0 0.75 1]); % Left panel for plots
 right = uipanel(fig, 'Position', [0.75 0 0.25 1]); % Right panel for buttons
 sgtitle("Can Crusher Data Read Out")
 
-num_subplots = ;
+num_subplots = 3;
 % PT Traces
 s1 = subplot(num_subplots,1,1, 'Parent', left);
     PT1_plot = plot(times, PTs(1,:), 'Color',"#33C5FF");
@@ -93,12 +96,18 @@ s1 = subplot(num_subplots,1,1, 'Parent', left);
 
 
 s3 = subplot(num_subplots,1,2, 'Parent', left);
-    Steps1_plot = plot(times, step_command_histPTs(1,:), 'Color',"#33C5FF");
+    F1_plot = plot(times, PTs(1,:).*CYLINDER_AREA, 'Color',"#33C5FF");
         hold on
-    Steps2_plot = plot(times, step_command_histPTs(2,:), 'Color',"#FFA333");
+    F2_plot = plot(times, PTs(2,:).*CYLINDER_AREA, 'Color',"#FFA333");
         hold on
-    Steps3_plot = plot(times, step_command_histPTs(3,:), 'Color',"#C233FF");
-
+    F3_plot = plot(times, PTs(3,:).*CYLINDER_AREA, 'Color',"#C233FF");
+        hold on
+    F1_tgt_plot = plot(times, F_command(1).*tgt_pct,'--', 'Color',"#33C5FF");
+        hold on
+    F2_tgt_plot = plot(times, F_command(2).*tgt_pct,'--', 'Color',"#FFA333");
+        hold on
+    F3_tgt_plot = plot(times, F_command(3).*tgt_pct,'--', 'Color',"#C233FF");
+        hold on
 
     xlabel("Time [s]")
     ylabel("Force [lbf]")
@@ -115,20 +124,20 @@ s3 = subplot(num_subplots,1,2, 'Parent', left);
 %         SG3_plot = plot(times, SGs(3,:), 'Color',"#C233FF");
 %         xlabel("Time [s]")
 %         ylabel("Strain")
-%         legend("SG 1","SG 1","SG 1", 'Location','northwest')
+%         legend("SG 1","SG 2","SG 3", 'Location','northwest')
 %         title(s2, "Strain Data")
 
 % Steps
 s4 =subplot(num_subplots,1,3, 'Parent', left);
-        SG1_plot = plot(times, SGs(1,:), 'Color',"#33C5FF");
+    Steps1_plot = plot(times, step_command_hist(1,:), 'Color',"#33C5FF");
         hold on
-        SG2_plot = plot(times, SGs(2,:), 'Color',"#FFA333");
+    Steps2_plot = plot(times, step_command_hist(2,:), 'Color',"#FFA333");
         hold on
-        SG3_plot = plot(times, SGs(3,:), 'Color',"#C233FF");
+    Steps3_plot = plot(times, step_command_hist(3,:), 'Color',"#C233FF");
         xlabel("Time [s]")
         ylabel("Steps")
         legend("Stepper 1","Stepper 2","Stepper 3", 'Location','northwest')
-        title(s2, "Steops Per Loop Iteration")
+        title(s4, "Steper Per Loop")
 
 %Buttons
 
@@ -144,28 +153,48 @@ SP_button.Layout.Row = 3;
 gui_text = uilabel(g,"Text","");%,sprintf("Current Test Step: %d\nState: %d\nRamp Pct: %d %\n",steps(step_ind), state, tgt_pct.*100));
 lbl1.Text = "Text";
 
-    PT1 = 0;
-    PT2 = 0;
-    PT3 = 0;
+    % PT1 = 0; %INIT TEST DATA, COMMENT OUT
+    % PT2 = 0;
+    % PT3 = 0;
+
+
+%% Reset arudino to known state
+disp("waiting...")
+pause(1)
+disp("flushing buffer...")
+for i = 1:10
+    write(s,"3","uint8")
+    pause(0.1);
+end
+
+disp("buffer flushed")
+
+try
+    [~, ~, ~] = sensors_read(s);
+catch ERROR
+    disp("Error in trevor.m")
+end
+
+disp("PT test read success")
 
 %% LOOP
 while(step_ind <= numel(steps))
-    waitfor(CONT_FREQ); % set loop frequency
+%waitfor(CONT_FREQ); % set loop frequency
 
 %% INPUTS
 % Get inputs   
 
-    % [PT1 PT2 PT3] = sensors_read(s);
+    [PT1 PT2 PT3] = sensors_read(s); % off by 2 error
     
-    %FAKE DATA FOR TESTING
-    PT1 = PT1 +100;
-    PT2 = PT2 +200;
-    PT3 = PT3 +300;
+    % % FAKE DATA FOR TESTING, COMMENT OUT
+    % PT1 = PT1 +100;
+    % PT2 = PT2 +225;
+    % PT3 = PT3 +350;
         
     % [SG1 SG2 SG3]
     SGs = [0 0 0];
 
-    PT_Reading = [PT1; PT2; PT3] ./8./6894.7572932 ;% read from serial, PA to psi/8
+    PT_Reading = [PT1; PT2; PT3] ./4./6894.7572932 ;% read from serial, PA to psi/8
     SG_Reading = SGs;%[SG1; SG2; SG3] ;% read from serial
     
 
@@ -273,15 +302,20 @@ end
             load_ramp_start = toc(load_ramp_timer);
         end      
         
-    steps_commanded = round((1-F_pct) .* GAIN);
+    F_diff = (F_command'.*tgt_pct) - F_meas; % diff from commanded force and measured force
+    steps_commanded = ceil(abs(F_diff .* GAIN)) .* sign(F_diff); % gain times 
     idx = steps_commanded>MAX_STEPS; % cap max steps to MAX Steps
     steps_commanded(idx) = MAX_STEPS;
 
-    step_dir = sign(F_command'.*tgt_pct - F_meas);
+    step_dir = sign(-steps_commanded);
     
     drive_steppers(s, step_dir, steps_commanded); % drive steppers
     
+    else
+        steps_commanded = [0 0 0]';
     end
+
+    step_command_hist = [step_command_hist steps_commanded];
 
     %Update plots
     times = [times toc(plot_timer)]; %Update time array
@@ -319,15 +353,23 @@ end
     F3_tgt_plot.XData = times;
     F3_tgt_plot.YData = F_command_hist(3,:);
 
-    step_command_hist = [step_command_hist steps_commanded'];
-
     Steps1_plot.XData = times;
-    F1_tgt_plot.YData = F_command_hist(1,:);
-    F2_tgt_plot.XData = times;
-    F2_tgt_plot.YData = F_command_hist(2,:);
-    F3_tgt_plot.XData = times;
-    F3_tgt_plot.YData = F_command_hist(3,:);
-    gui_text.Text = sprintf("Current Test Step: %d\nState: %d\nRamp Pct: %.0f\nStep Timer: %.1f\n\nForce Targets:\nF1: %.0f lbf\nF2: %.0f lbf\nF3: %.0f lbf",steps(step_ind), state, tgt_pct.*100, toc(load_step_timer)-load_step_start,F_command(1),F_command(2),F_command(3));
+    Steps1_plot.YData = step_command_hist(1,:);
+    Steps2_plot.XData = times;
+    Steps2_plot.YData = step_command_hist(2,:);
+    Steps3_plot.XData = times;
+    Steps3_plot.YData = step_command_hist(3,:);
+
+    gui_text.Text = sprintf( ...
+        "Current Test Step: %d\n" + ...
+        "State: %d [%s] \n" + ...
+        "Ramp Pct: %.0f\n" + ...
+        "Step Timer: %.1f\n\n" + ...
+        "Force Targets:\n" + ...
+        "F1: %.0f lbf\n" + ...
+        "F2: %.0f lbf\n" + ...
+        "F3: %.0f lbf", ...
+        steps(step_ind), state, state_names(state) ,tgt_pct.*100, toc(load_step_timer)-load_step_start,F_command(1),F_command(2),F_command(3));
     
     drawnow; % push update to screen
     
