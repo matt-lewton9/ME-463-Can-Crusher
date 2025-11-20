@@ -15,13 +15,13 @@ hold_steps = cust_inputs(6,:);
 
 
 %% CONTROLLER INPUTS
-CONT_FREQ = rateControl(10); % hz, desired controller frequency
-TGT_LIM = 0.02; % +/- 5% within target value "reached target"
-TGT_STEP = 0.02; % pct to step up target load
-ABT_LIM = 1.20; % 20% Deviation above commanded press to trigger abort
-GAIN = .3; %Gain for porportional controller
-MAX_STEPS = 20; %Max steps for controller to command
-CYLINDER_AREA = (3.776^2)*pi / 4;
+CONT_FREQ = rateControl(10); % desired controller frequency [Hz]
+TGT_LIM = 0.02; % error to consider presssure "reached target" [% error]
+TGT_STEP = 0.02; % size of pressure step increments [% to next target pressure]
+ABT_LIM = 1.20; % deviation above commanded pressure to trigger abort [multiple of commanded pressure]
+GAIN = .3; % Gain for porportional controller [unitless]
+MAX_STEPS = 20; % Max steps for controller to command
+CYLINDER_AREA = (3.776^2)*pi / 4; % area of cylinder [in^2]
 COM_PORT = "/dev/tty.usbmodem14101";
 BAUD_RATE = 115200;
 
@@ -30,7 +30,7 @@ STATE_0 = 100; % START STATE
 STATE_1 = 101; % MOVE TO TGT LOAD STATE
 STATE_2 = 102; % COMMANDED HOLD STATE
 STATE_3 = 103; % SAFETY STOP STATE
-state_names = dictionary([100 101 102 103], ["START" "MOVE" "HOLD" "STOP"]);
+state_names = dictionary([100 101 102 103], ["START" "MOVE" "HOLD" "STOP"]); % pretty names
 
 % Input Variables
 TP = 0; % OUTSIDE TARGET PRESSURE?
