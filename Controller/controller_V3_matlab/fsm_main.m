@@ -19,10 +19,10 @@ CONT_FREQ = rateControl(10); % hz, desired controller frequency
 TGT_LIM = 0.05; % +/- 5% within target value "reached target"
 TGT_STEP = 0.05; % pct to step up target load
 ABT_LIM = 1.20; % 20% Deviation above commanded press to trigger abort
-GAIN = 1; %Gain for porportional controller
+GAIN = .05; %Gain for porportional controller
 MAX_STEPS = 10; %Max steps for controller to command
 CYLINDER_AREA = (3.776^2)*pi / 4;
-COM_PORT = "COM6";
+COM_PORT = "/dev/tty.usbmodem14101";
 BAUD_RATE = 115200;
 
 %% Set Up State Machine
@@ -54,7 +54,7 @@ load_step_timer = tic;
 load_step_start = toc(load_step_timer);
 
 %% Init arduino connection
-% s = serialport(COM_PORT, 115200);
+s = serialport(COM_PORT, 115200);
 
 %% Initiate plotting
 plot_timer = tic;
@@ -154,9 +154,24 @@ lbl1.Text = "Text";
     % PT2 = 0;
     % PT3 = 0;
 
+for i = 1:10
+    write(s,"3","uint8")
+    pause(0.1);
+end
+
+disp("should have flushed")
+
+try
+    [PT1, PT2, PT3] = sensors_read(s)
+catch ERROR
+    disp("Error in trevor.m")
+end
+
+disp("read pt once)")
+
 %% LOOP
 while(step_ind <= numel(steps))
-    waitfor(CONT_FREQ); % set loop frequency
+    %waitfor(CONT_FREQ); % set loop frequency
 
 %% INPUTS
 % Get inputs   
@@ -280,11 +295,11 @@ end
         end      
         
     F_diff = (F_command'.*tgt_pct) - F_meas; % diff from commanded force and measured force
-    steps_commanded = round(F_diff) .* GAIN; % gain times 
+    steps_commanded = round(F_diff, TieBreaker="fromzero") .* GAIN; % gain times 
     idx = steps_commanded>MAX_STEPS; % cap max steps to MAX Steps
     steps_commanded(idx) = MAX_STEPS;
 
-    step_dir = sign(F_diff);
+    step_dir = sign(-steps_commanded);
     
     drive_steppers(s, step_dir, steps_commanded); % drive steppers
     

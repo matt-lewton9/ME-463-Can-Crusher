@@ -4,9 +4,10 @@ if ~exist("s", "var")
 end
 write(s,"2","char");
 read(s,1,"char")
+
 write(s,1,"uint8");
-write(s,100,"uint8");
+write(s,10,"uint8");
 write(s,1,"uint8");
-write(s,100,"uint8");
+write(s,10,"uint8");
 write(s,0,"uint8");
 write(s,0,"uint8");
