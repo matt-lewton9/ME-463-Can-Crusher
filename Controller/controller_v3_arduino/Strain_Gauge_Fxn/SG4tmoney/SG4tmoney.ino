@@ -9,12 +9,16 @@ float cal;
 float V_int;
 
 
-float C1 = 1;
-float C2 = .78; 
-float C3 = 1.01;
+float C1 = .802;
+float ve1 = 4.206;
+float C2 = .809; 
+float ve2 = 4.262;
+float C3 = .795;
+float ve3 = 4.171;
 
 
-float C = C1; // chose based on the strain gauge you are testing
+float C = C3; // chose based on the strain gauge you are testing
+float ve = ve3;
 
 float StrnGauge (){
   scale.set_gain(128);
@@ -27,13 +31,14 @@ float StrnGauge (){
 
   //convert to V0
     float v0 = (data*.02*(C)) / (8388607); //Digital to Volts
+    Serial.println (v0, 10);
     float del_v = v0 - V_int;
     
     Serial.print("Del V:");
     Serial.println(del_v, 8);
 
     //calc strain
-    float del_e = ((4*del_v)/(2.1*4.2));
+    float del_e = ((4*del_v)/(2.1*ve));
 
     return del_e;
 
