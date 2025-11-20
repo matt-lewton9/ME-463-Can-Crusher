@@ -16,11 +16,11 @@ hold_steps = cust_inputs(6,:);
 
 %% CONTROLLER INPUTS
 CONT_FREQ = rateControl(10); % hz, desired controller frequency
-TGT_LIM = 0.05; % +/- 5% within target value "reached target"
-TGT_STEP = 0.05; % pct to step up target load
+TGT_LIM = 0.02; % +/- 5% within target value "reached target"
+TGT_STEP = 0.02; % pct to step up target load
 ABT_LIM = 1.20; % 20% Deviation above commanded press to trigger abort
-GAIN = .5; %Gain for porportional controller
-MAX_STEPS = 10; %Max steps for controller to command
+GAIN = .3; %Gain for porportional controller
+MAX_STEPS = 20; %Max steps for controller to command
 CYLINDER_AREA = (3.776^2)*pi / 4;
 COM_PORT = "/dev/tty.usbmodem14101";
 BAUD_RATE = 115200;
@@ -30,6 +30,7 @@ STATE_0 = 100; % START STATE
 STATE_1 = 101; % MOVE TO TGT LOAD STATE
 STATE_2 = 102; % COMMANDED HOLD STATE
 STATE_3 = 103; % SAFETY STOP STATE
+state_names = dictionary([100 101 102 103], ["START" "MOVE" "HOLD" "STOP"]);
 
 % Input Variables
 TP = 0; % OUTSIDE TARGET PRESSURE?
@@ -54,7 +55,9 @@ load_step_timer = tic;
 load_step_start = toc(load_step_timer);
 
 %% Init arduino connection
+disp("Connecting to arduino on COM port " + COM_PORT + " ...")
 s = serialport(COM_PORT, 115200);
+disp("Connected")
 
 %% Initiate plotting
 plot_timer = tic;
@@ -154,15 +157,17 @@ lbl1.Text = "Text";
     % PT2 = 0;
     % PT3 = 0;
 
+
+%% Reset arudino to known state
 disp("waiting...")
 pause(1)
-disp("flushing...")
+disp("flushing buffer...")
 for i = 1:10
     write(s,"3","uint8")
     pause(0.1);
 end
 
-disp("should be flushed")
+disp("buffer flushed")
 
 try
     [~, ~, ~] = sensors_read(s);
@@ -170,16 +175,16 @@ catch ERROR
     disp("Error in trevor.m")
 end
 
-disp("read pt once")
+disp("PT test read success")
 
 %% LOOP
 while(step_ind <= numel(steps))
-    %waitfor(CONT_FREQ); % set loop frequency
+%waitfor(CONT_FREQ); % set loop frequency
 
 %% INPUTS
 % Get inputs   
 
-    [PT1 PT2 PT3] = sensors_read(s);
+    [PT1 PT2 PT3] = sensors_read(s); % off by 2 error
     
     % % FAKE DATA FOR TESTING, COMMENT OUT
     % PT1 = PT1 +100;
@@ -189,7 +194,7 @@ while(step_ind <= numel(steps))
     % [SG1 SG2 SG3]
     SGs = [0 0 0];
 
-    PT_Reading = [PT1; PT2; PT3] ./8./6894.7572932 ;% read from serial, PA to psi/8
+    PT_Reading = [PT1; PT2; PT3] ./4./6894.7572932 ;% read from serial, PA to psi/8
     SG_Reading = SGs;%[SG1; SG2; SG3] ;% read from serial
     
 
@@ -355,7 +360,16 @@ end
     Steps3_plot.XData = times;
     Steps3_plot.YData = step_command_hist(3,:);
 
-    gui_text.Text = sprintf("Current Test Step: %d\nState: %d\nRamp Pct: %.0f\nStep Timer: %.1f\n\nForce Targets:\nF1: %.0f lbf\nF2: %.0f lbf\nF3: %.0f lbf",steps(step_ind), state, tgt_pct.*100, toc(load_step_timer)-load_step_start,F_command(1),F_command(2),F_command(3));
+    gui_text.Text = sprintf( ...
+        "Current Test Step: %d\n" + ...
+        "State: %d (\n" + ...
+        "Ramp Pct: %.0f\n" + ...
+        "Step Timer: %.1f\n\n" + ...
+        "Force Targets:\n" + ...
+        "F1: %.0f lbf\n" + ...
+        "F2: %.0f lbf\n" + ...
+        "F3: %.0f lbf", ...
+        steps(step_ind), state, tgt_pct.*100, toc(load_step_timer)-load_step_start,F_command(1),F_command(2),F_command(3));
     
     drawnow; % push update to screen
     

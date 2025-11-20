@@ -30,6 +30,7 @@ STATE_0 = 100; % START STATE
 STATE_1 = 101; % MOVE TO TGT LOAD STATE
 STATE_2 = 102; % COMMANDED HOLD STATE
 STATE_3 = 103; % SAFETY STOP STATE
+state_names = dictionary([100 101 102 103], ["START" "MOVE" "HOLD" "STOP"]);
 
 % Input Variables
 TP = 0; % OUTSIDE TARGET PRESSURE?
@@ -54,7 +55,9 @@ load_step_timer = tic;
 load_step_start = toc(load_step_timer);
 
 %% Init arduino connection
+disp("Connecting to arduino on COM port " + COM_PORT + " ...")
 s = serialport(COM_PORT, 115200);
+disp("Connected")
 
 %% Initiate plotting
 plot_timer = tic;
@@ -154,15 +157,17 @@ lbl1.Text = "Text";
     % PT2 = 0;
     % PT3 = 0;
 
+
+%% Reset arudino to known state
 disp("waiting...")
 pause(1)
-disp("flushing...")
+disp("flushing buffer...")
 for i = 1:10
     write(s,"3","uint8")
     pause(0.1);
 end
 
-disp("should be flushed")
+disp("buffer flushed")
 
 try
     [~, ~, ~] = sensors_read(s);
@@ -170,11 +175,11 @@ catch ERROR
     disp("Error in trevor.m")
 end
 
-disp("read pt once")
+disp("PT test read success")
 
 %% LOOP
 while(step_ind <= numel(steps))
-    %waitfor(CONT_FREQ); % set loop frequency
+%waitfor(CONT_FREQ); % set loop frequency
 
 %% INPUTS
 % Get inputs   
@@ -355,7 +360,16 @@ end
     Steps3_plot.XData = times;
     Steps3_plot.YData = step_command_hist(3,:);
 
-    gui_text.Text = sprintf("Current Test Step: %d\nState: %d\nRamp Pct: %.0f\nStep Timer: %.1f\n\nForce Targets:\nF1: %.0f lbf\nF2: %.0f lbf\nF3: %.0f lbf",steps(step_ind), state, tgt_pct.*100, toc(load_step_timer)-load_step_start,F_command(1),F_command(2),F_command(3));
+    gui_text.Text = sprintf( ...
+        "Current Test Step: %d\n" + ...
+        "State: %d [%s] \n" + ...
+        "Ramp Pct: %.0f\n" + ...
+        "Step Timer: %.1f\n\n" + ...
+        "Force Targets:\n" + ...
+        "F1: %.0f lbf\n" + ...
+        "F2: %.0f lbf\n" + ...
+        "F3: %.0f lbf", ...
+        steps(step_ind), state, state_names(state) ,tgt_pct.*100, toc(load_step_timer)-load_step_start,F_command(1),F_command(2),F_command(3));
     
     drawnow; % push update to screen
     
