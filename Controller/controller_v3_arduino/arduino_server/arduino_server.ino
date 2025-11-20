@@ -15,12 +15,12 @@
 #define SG3_DATA
 
 // Steper Motors
-#define M1_DIR 52
-#define M1_PUL 53
-#define M2_DIR 48
-#define M2_PUL 49
-#define M3_DIR 44
-#define M3_PUL 45
+#define M1_DIR 22
+#define M1_PUL 23
+#define M2_DIR 24
+#define M2_PUL 25
+#define M3_DIR 26
+#define M3_PUL 27
 
 // Serial
 #define BAUD 115200
@@ -50,7 +50,11 @@ void setup() {
   pinMode(M2_DIR, OUTPUT);
   pinMode(M2_PUL, OUTPUT);
   digitalWrite(M2_DIR, LOW);
+  pinMode(M3_DIR, OUTPUT);
+  pinMode(M3_PUL, OUTPUT);
+  digitalWrite(M3_DIR, LOW);
 }
+
 
 // Loop
 void loop() {
@@ -87,7 +91,7 @@ void loop() {
     int m2_steps = Serial.read();
     int m3_dir = Serial.read();
     int m3_steps = Serial.read();
-    // drive steppers
+    // drive 
     drive_stepper(m1_dir, m1_steps, m2_dir, m2_steps, m3_dir, m3_steps);
   }
 }
@@ -111,6 +115,7 @@ void drive_stepper(int M1_dir, int M1_steps, int M2_dir, int M2_steps, int M3_di
       digitalWrite(M2_PUL, HIGH);
     }
     if (M3_steps > step) {
+      // Serial.print("1");
       digitalWrite(M3_PUL, HIGH);
     }  
     delayMicroseconds(500);
@@ -121,6 +126,7 @@ void drive_stepper(int M1_dir, int M1_steps, int M2_dir, int M2_steps, int M3_di
       digitalWrite(M2_PUL, LOW);
     }
     if (M3_steps > step) {
+      // Serial.print("2");
       digitalWrite(M3_PUL, LOW);
     }
     delayMicroseconds(500);
