@@ -117,14 +117,14 @@ s3 = subplot(num_subplots,1,2, 'Parent', left);
 
 % % Strains
 s2 = subplot(num_subplots,1,3, 'Parent', left);
-        [SG1_no_outliers, SG1_rm] = rmoutliers(SGs(1,:));
-        SG1_plot = plot(times(~SG1_rm), SG1_no_outliers, 'Color',"#33C5FF");
+        % [SG1_no_outliers, SG1_rm] = rmoutliers(SGs(1,:));
+        SG1_plot = plot(times, SGs(1,:), 'Color',"#33C5FF");
         hold on
-        [SG2_no_outliers, SG2_rm] = rmoutliers(SGs(2,:));
-        SG2_plot = plot(times(~SG1_rm), SG2_no_outliers, 'Color',"#FFA333");
+        % [SG2_no_outliers, SG2_rm] = rmoutliers(SGs(2,:));
+        SG2_plot = plot(times, SGs(2,:), SG2_no_outliers, 'Color',"#FFA333");
         hold on
-        [SG3_no_outliers, SG3_rm] = rmoutliers(SGs(3,:));
-        SG3_plot = plot(times(~SG3_rm), SG3_no_outliers, 'Color',"#C233FF");
+        % [SG3_no_outliers, SG3_rm] = rmoutliers(SGs(3,:));
+        SG3_plot = plot(times, SGs(3,:), SG3_no_outliers, 'Color',"#C233FF");
         xlabel("Time [s]")
         ylabel("Strain")
         legend("SG 1","SG 2","SG 3", 'Location','northwest')
@@ -185,7 +185,7 @@ for i = 1:10
     pause(0.15)
 end
 SG_zeros = SG_zeros ./ 10;
-fprintf("zeroed with SG1: %.4f SG2: %.4f SG3:%.4f", SG_zeros(1), SG_zeros(2), SG_zeros(3))
+fprintf("zeroed with SG1: %.4f SG2: %.4f SG3: %.4f", SG_zeros(1), SG_zeros(2), SG_zeros(3))
 
 %% LOOP
 while(step_ind <= numel(steps))
