@@ -1,18 +1,19 @@
 // Libraries
 #include <Wire.h>
 #include <math.h>
+#include "HX711.h"
 
 // Pressure Transducers
 #define MUX_ADDR 0x70
 #define PT_ADDR 0x6D
 
 // Strain Gauges
-#define SG1_SCK
-#define SG1_DATA
-#define SG2_SCK
-#define SG2_DATA
-#define SG3_SCK
-#define SG3_DATA
+#define SG1_SCK 4
+#define SG1_DATA 5
+#define SG2_SCK 2
+#define SG2_DATA 3
+#define SG3_SCK 6
+#define SG3_DATA 7
 
 // Steper Motors
 #define M1_DIR 22
@@ -32,7 +33,16 @@ int32_t PT1_raw = 0;
 int32_t PT2_raw = 0;
 int32_t PT3_raw = 0;
 
+// strain gauge objects
+HX711 SG1_obj;
+HX711 SG2_obj;
+HX711 SG3_obj;
 
+// functions
+// uint8_t read_pt(int32_t *raw_pressure);
+// void mux_select(uint8_t i);
+// void single_step(int pin_pul, int delay_ms);
+// void drive_stepper(int M1_dir, int M1_steps, int M2_dir, int M2_steps, int M3_dir, int M3_steps);
 
 // Setup
 void setup() {
@@ -53,6 +63,9 @@ void setup() {
   pinMode(M3_DIR, OUTPUT);
   pinMode(M3_PUL, OUTPUT);
   digitalWrite(M3_DIR, LOW);
+
+  // setup straing gauges
+  SG1_obj.begin(SG1_DATA, SG1_SCK);
 }
 
 
@@ -66,18 +79,26 @@ void loop() {
     // send ack
     Serial.write("1");
 
-    // read sensors, print 
+    // read pressure transducers, print 
     mux_select(0);
     read_pt(&PT1_raw);
     Serial.print(String(PT1_raw,10) + "\n");
 
     mux_select(1);
     read_pt(&PT2_raw);
-    Serial.print(String(PT2_raw,10) + "\n");
+    Serial.print(String(PT2_raw) + "\n");
 
     mux_select(2);
     read_pt(&PT3_raw);
     Serial.print(String(PT3_raw,10) + "\n");
+
+    // read strain gauges
+    float SG1_raw = SG1_obj.read();
+    Serial.print(String(SG1_raw,10) + "\n");
+    float SG2_raw = SG1_obj.read();
+    Serial.print(String(SG2_raw,10) + "\n");
+    float SG3_raw = SG1_obj.read();
+    Serial.print(String(SG3_raw,10) + "\n");
   }
   if (cmd == 50) { // recive motor commands
     // send ack
@@ -91,7 +112,8 @@ void loop() {
     int m2_steps = Serial.read();
     int m3_dir = Serial.read();
     int m3_steps = Serial.read();
-    // drive 
+
+    // drive steppers
     drive_stepper(m1_dir, m1_steps, m2_dir, m2_steps, m3_dir, m3_steps);
   }
 }
@@ -161,6 +183,7 @@ uint8_t read_pt(int32_t *raw_pressure) {
   pressure_adc = (pressure_adc << 8) + (uint32_t) pressure_L;
   *raw_pressure = ((pressure_adc << 8) >> 8);
 }
+
 
 void mux_select(uint8_t i) {
   // select device i from multiplexer

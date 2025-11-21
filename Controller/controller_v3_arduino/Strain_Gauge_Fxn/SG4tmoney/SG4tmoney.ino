@@ -3,39 +3,39 @@
 #include "HX711.h"
 HX711 scale;
 
-const int DOUT_PIN = 6  ;
-const int SCK_PIN  = 7; 
+const int DOUT_PIN = 7;
+const int SCK_PIN  = 6; 
 float cal;
 float V_int;
 
 
-float C1 = .802;
-float ve1 = 4.206;
-float C2 = .809; 
-float ve2 = 4.262;
+float C2 = .802;
+float ve2 = 4.206;
+float C1 = .809; 
+float ve1 = 4.262;
 float C3 = .795;
 float ve3 = 4.171;
 
 
-float C = C3; // chose based on the strain gauge you are testing
-float ve = ve3;
+float C = C2; // chose based on the strain gauge you are testing
+float ve = ve2;
 
-float StrnGauge (){
+float StrnGauge () {
   scale.set_gain(128);
   
   if (scale.is_ready()) {
     //pull raw 24 bit value
     float data = scale.read();
-    Serial.print("Raw reading: ");
-    Serial.println(data,4 );
+    // Serial.print("Raw reading: ");
+    // Serial.println(data,4 );
 
   //convert to V0
     float v0 = (data*.02*(C)) / (8388607); //Digital to Volts
-    Serial.println (v0, 10);
+    // Serial.println (v0, 10);
     float del_v = v0 - V_int;
     
-    Serial.print("Del V:");
-    Serial.println(del_v, 8);
+    // Serial.print("Del V:");
+    // Serial.println(del_v, 8);
 
     //calc strain
     float del_e = ((4*del_v)/(2.1*ve));
@@ -62,7 +62,7 @@ float StrnCal (){
 }
 
 void setup() {
-  Serial.begin(57600);
+  Serial.begin(115200);
   scale.begin(DOUT_PIN, SCK_PIN);
   delay(1000);
   V_int = StrnCal();
@@ -74,8 +74,8 @@ void setup() {
 
 void loop() {
     float strain = StrnGauge();
-    float strain_p= strain *1000000; 
-    Serial.print("Strain: ");
+    float strain_p= strain * 1000000; 
+    // Serial.print("Strain: ");
     Serial.println(strain_p, 10);
 
     delay(500);

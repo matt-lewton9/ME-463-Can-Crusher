@@ -116,28 +116,28 @@ s3 = subplot(num_subplots,1,2, 'Parent', left);
     
 
 % % Strains
-% s2 =subplot(num_subplots,1,3, 'Parent', left);
-%         SG1_plot = plot(times, SGs(1,:), 'Color',"#33C5FF");
-%         hold on
-%         SG2_plot = plot(times, SGs(2,:), 'Color',"#FFA333");
-%         hold on
-%         SG3_plot = plot(times, SGs(3,:), 'Color',"#C233FF");
-%         xlabel("Time [s]")
-%         ylabel("Strain")
-%         legend("SG 1","SG 2","SG 3", 'Location','northwest')
-%         title(s2, "Strain Data")
+s2 =subplot(num_subplots,1,3, 'Parent', left);
+        SG1_plot = plot(times, SGs(1,:), 'Color',"#33C5FF");
+        hold on
+        SG2_plot = plot(times, SGs(2,:), 'Color',"#FFA333");
+        hold on
+        SG3_plot = plot(times, SGs(3,:), 'Color',"#C233FF");
+        xlabel("Time [s]")
+        ylabel("Strain")
+        legend("SG 1","SG 2","SG 3", 'Location','northwest')
+        title(s2, "Strain Data")
 
 % Steps
-s4 =subplot(num_subplots,1,3, 'Parent', left);
-    Steps1_plot = plot(times, step_command_hist(1,:), 'Color',"#33C5FF");
-        hold on
-    Steps2_plot = plot(times, step_command_hist(2,:), 'Color',"#FFA333");
-        hold on
-    Steps3_plot = plot(times, step_command_hist(3,:), 'Color',"#C233FF");
-        xlabel("Time [s]")
-        ylabel("Steps")
-        legend("Stepper 1","Stepper 2","Stepper 3", 'Location','northwest')
-        title(s4, "Steper Per Loop")
+% s4 =subplot(num_subplots,1,3, 'Parent', left);
+%     Steps1_plot = plot(times, step_command_hist(1,:), 'Color',"#33C5FF");
+%         hold on
+%     Steps2_plot = plot(times, step_command_hist(2,:), 'Color',"#FFA333");
+%         hold on
+%     Steps3_plot = plot(times, step_command_hist(3,:), 'Color',"#C233FF");
+%         xlabel("Time [s]")
+%         ylabel("Steps")
+%         legend("Stepper 1","Stepper 2","Stepper 3", 'Location','northwest')
+%         title(s4, "Steper Per Loop")
 
 %Buttons
 
@@ -152,10 +152,6 @@ HD_button.Layout.Row = 2;
 SP_button.Layout.Row = 3;
 gui_text = uilabel(g,"Text","");%,sprintf("Current Test Step: %d\nState: %d\nRamp Pct: %d %\n",steps(step_ind), state, tgt_pct.*100));
 lbl1.Text = "Text";
-
-    % PT1 = 0; %INIT TEST DATA, COMMENT OUT
-    % PT2 = 0;
-    % PT3 = 0;
 
 
 %% Reset arudino to known state
@@ -184,7 +180,7 @@ while(step_ind <= numel(steps))
 %% INPUTS
 % Get inputs   
 
-    [PT1 PT2 PT3] = sensors_read(s); % off by 2 error
+    [PT1, PT2, PT3, SG1, SG2, SG3] = sensors_read(s); % off by 2 error
     
     % % FAKE DATA FOR TESTING, COMMENT OUT
     % PT1 = PT1 +100;
@@ -192,10 +188,10 @@ while(step_ind <= numel(steps))
     % PT3 = PT3 +350;
         
     % [SG1 SG2 SG3]
-    SGs = [0 0 0];
+    % SGs = [0 0 0];
 
     PT_Reading = [PT1; PT2; PT3] ./4./6894.7572932 ;% read from serial, PA to psi/8
-    SG_Reading = SGs;%[SG1; SG2; SG3] ;% read from serial
+    SG_Reading = [SG1; SG2; SG3] + [3349; 3363.9; 3362.7];% read from serial
     
 
     ST = ST_button.Value; %GET FROM GUI INPUT;
@@ -359,6 +355,13 @@ end
     Steps2_plot.YData = step_command_hist(2,:);
     Steps3_plot.XData = times;
     Steps3_plot.YData = step_command_hist(3,:);
+
+    SG1_plot.XData = times;
+    SG1_plot.YData = SGs(1,:);
+    SG2_plot.XData = times;
+    SG2_plot.YData = SGs(2,:);
+    SG3_plot.XData = times;
+    SG3_plot.YData = SGs(3,:);
 
     gui_text.Text = sprintf( ...
         "Current Test Step: %d\n" + ...
