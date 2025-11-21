@@ -74,8 +74,8 @@ void setup() {
 
 void loop() {
     float strain = StrnGauge();
-    float strain_p= strain * 1000000; 
-    // Serial.print("Strain: ");
+    float strain_p = strain * 1000000; 
+    Serial.print("Strain: ");
     Serial.println(strain_p, 10);
 
     delay(500);
