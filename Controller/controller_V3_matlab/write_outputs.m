@@ -33,11 +33,11 @@ writetable(F_command_hist_table, dir_str + "/Force_commanded.csv")
 %% Commanded Stepts
 %step_command_hist = [0 1 2 3 4; 0 2 4 6 8; 0 3 9 12 15];
 step_command_hist_table = array2table(step_command_hist');
-step_command_hist_table.Properties.VariableNames = {'M1 steps [steps]', 'M2 steps [steps]', 'M3 steps [steps]'};
+step_command_hist_table.Properties.VariableNames = {'M1 command [steps]', 'M2 command [steps]', 'M3 command [steps]'};
 writetable(step_command_hist_table, dir_str + "/Steps_commanded.csv")
 
 %% Straing Gauges
-%step_command_hist = [0 1 2 3 4; 0 2 4 6 8; 0 3 9 12 15];
+%sg_hist_table = [0 1 2 3 4; 0 2 4 6 8; 0 3 9 12 15];
 sg_hist_table = array2table(SGs');
 sg_hist_table.Properties.VariableNames = {'SG1 [microstrain]', 'SG2 [microstrain]', 'SG3 [microstrain]'};
 writetable(sg_hist_table, dir_str + "/Steps_commanded.csv")

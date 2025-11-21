@@ -162,14 +162,13 @@ disp("waiting...")
 pause(1)
 disp("flushing buffer...")
 for i = 1:10
-    write(s,"3","uint8")
+    write(s,"0","uint8")
     pause(0.1);
 end
-
 disp("buffer flushed")
 
 try
-    [~, ~, ~] = sensors_read(s);
+    [~, ~, ~, ~, ~, ~] = sensors_read(s);
 catch ERROR
     disp("Error in trevor.m")
 end
@@ -178,8 +177,15 @@ disp("PT test read success")
 
 %% get zero offset for SG
 disp("zeroing strain gauges...")
-[~, ~, ~, SG1_zero, SG2_zero, SG3_zero] = sensors_read(s);
-disp("zeroed")
+% take 10 readings, average to get zero offset
+SG_zeros = [0; 0; 0;];
+for i = 1:10
+    [~, ~, ~, SG1, SG2, SG3] = sensors_read(s);
+    SG_zeros = SG_zeros + [SG1; SG2; SG3];
+    pause(0.15)
+end
+SG_zeros = SG_zeros ./ 10;
+fprintf("zeroed with SG1: %.4f SG2: %.4f SG3:%.4f", SG_zeros(1), SG_zeros(2), SG_zeros(3))
 
 %% LOOP
 while(step_ind <= numel(steps))
@@ -188,7 +194,7 @@ while(step_ind <= numel(steps))
 %% INPUTS
 % Get inputs   
 
-    [PT1, PT2, PT3, SG1, SG2, SG3] = sensors_read(s); % off by 2 error
+    [PT1, PT2, PT3, SG1, SG2, SG3] = sensors_read(s); % read in sensors
     
     % % FAKE DATA FOR TESTING, COMMENT OUT
     % PT1 = PT1 +100;
@@ -198,8 +204,8 @@ while(step_ind <= numel(steps))
     % [SG1 SG2 SG3]
     % SGs = [0 0 0];
 
-    PT_Reading = [PT1; PT2; PT3] ./4./6894.7572932 ;% read from serial, PA to psi/8
-    SG_Reading = [SG1; SG2; SG3] + [3349; 3363.9; 3362.7];% read from serial
+    PT_Reading = [PT1; PT2; PT3]; % read from serial, PA to psi/8
+    SG_Reading = [SG1; SG2; SG3] - SG_zeros;% read from serial [microstrain]
     
 
     ST = ST_button.Value; %GET FROM GUI INPUT;
@@ -226,7 +232,7 @@ while(step_ind <= numel(steps))
 if(AHD) %if auto hold on    
     if ((toc(load_step_timer)-load_step_start) >= hold_steps(step_ind)) % if auto hold over
         AHD = 0; % turn off hold
-        tgt_pct = 0; %Reset target percent
+        tgt_pct = 0; % reset target percent
         step_ind = step_ind+1; % step to next index
         load_step_start = toc(load_step_timer); % reset step timer
 
@@ -377,12 +383,10 @@ end
         "Ramp Pct: %.0f\n" + ...
         "Step Timer: %.1f\n\n" + ...
         "Force Targets:\n" + ...
-        "F1: %.0f lbf\n" + ...
-        "F2: %.0f lbf\n" + ...
-        "F3: %.0f lbf", ...
-        steps(step_ind), state, state_names(state) ,tgt_pct.*100, toc(load_step_timer)-load_step_start,F_command(1),F_command(2),F_command(3));
+        "  F1: %.0f lbf\n" + ...
+        "  F2: %.0f lbf\n" + ...
+        "  F3: %.0f lbf", ...
+        steps(step_ind), state, state_names(state), tgt_pct.*100, toc(load_step_timer)-load_step_start, F_command(1), F_command(2), F_command(3));
     
     drawnow; % push update to screen
-    
-    
 end 
