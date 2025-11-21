@@ -116,7 +116,7 @@ s3 = subplot(num_subplots,1,2, 'Parent', left);
     
 
 % % Strains
-s2 =subplot(num_subplots,1,3, 'Parent', left);
+s2 = subplot(num_subplots,1,3, 'Parent', left);
         [SG1_no_outliers, SG1_rm] = rmoutliers(SGs(1,:));
         SG1_plot = plot(times(~SG1_rm), SG1_no_outliers, 'Color',"#33C5FF");
         hold on
