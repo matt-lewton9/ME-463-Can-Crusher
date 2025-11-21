@@ -212,7 +212,7 @@ while(step_ind <= numel(steps))
     MHD = HD_button.Value; % Manual Hold
     SP = SP_button.Value; % STOP
 
-    F_command = act_loads(compress_steps(step_ind), bending_steps(step_ind), bending_angle_steps(step_ind));
+    F_command = act_loads(compress_steps(step_ind), bending_steps(step_ind), bending_angle_steps(step_ind)) ./ 2; % account for pulley
     F_meas = PT_Reading .* CYLINDER_AREA; %Force = press * bore area
     F_pct = F_meas./(F_command'); %pct of total press
 
