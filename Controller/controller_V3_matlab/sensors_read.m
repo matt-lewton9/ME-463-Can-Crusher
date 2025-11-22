@@ -19,11 +19,11 @@ SG2_raw = str2num(s.readline());
 SG3_raw = str2num(s.readline());
 
 % calibration factors
-SG2_C = .802;
+SG2_C = .813;
 SG2_VE = 4.206;
-SG1_C = .809; 
+SG1_C = .820; 
 SG1_VE = 4.262;
-SG3_C = .795;
+SG3_C = .802;
 SG3_VE = 4.171;
 
 % convert to microstrain

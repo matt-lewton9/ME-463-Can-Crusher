@@ -3,8 +3,8 @@
 #include "HX711.h"
 HX711 scale;
 
-const int DOUT_PIN = 6;
-const int SCK_PIN  = 7; 
+const int DOUT_PIN = 9;
+const int SCK_PIN  = 8; 
 
 long StrnGauge (){
   scale.set_gain(128);
@@ -16,8 +16,9 @@ long StrnGauge (){
     Serial.println(data);
       
     //convert to V0
-    long v0 = data *.02; //Digital to Volts
-    Serial.println (v0);
+    float CC=.802;
+    float v0 = CC*data *.02/8388607; //Digital to Volts
+    Serial.println (v0, 8);
 
     //calc strain
     const int C=0; //calibration constant
