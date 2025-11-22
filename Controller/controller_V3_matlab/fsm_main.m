@@ -3,7 +3,7 @@ close all;
 clear;
 
 %% Load Customer Inputs
-cust_inputs = readmatrix("customer_inputs_CUSTOMER_180_DEG.xlsx"); % import customer data
+cust_inputs = readmatrix("customer_inputs_MX_BEND_180_DEG.xlsx"); % import customer data
 cust_inputs = cust_inputs(:,2:end); % trim 1st col
 
 steps = cust_inputs(1,:);
@@ -56,7 +56,7 @@ load_step_start = toc(load_step_timer);
 
 %% Init arduino connection
 disp("Connecting to arduino on COM port " + COM_PORT + " ...")
-s = serialport(COM_PORT, 115200);
+% s = serialport(COM_PORT, 115200);
 disp("Connected")
 
 %% Initiate plotting
@@ -161,17 +161,17 @@ lbl1.Text = "Text";
 disp("waiting...")
 pause(1)
 disp("flushing buffer...")
-for i = 1:10
-    write(s,"0","uint8")
-    pause(0.1);
-end
+% for i = 1:10
+%     write(s,"0","uint8")
+%     pause(0.1);
+% end
 disp("buffer flushed")
 
-try
-    [~, ~, ~, ~, ~, ~] = sensors_read(s);
-catch ERROR
-    disp("Error in trevor.m")
-end
+% try
+%     [~, ~, ~, ~, ~, ~] = sensors_read(s);
+% catch ERROR
+%     disp("Error in trevor.m")
+% end
 
 disp("PT test read success")
 
@@ -179,27 +179,30 @@ disp("PT test read success")
 disp("zeroing strain gauges...")
 % take 10 readings, average to get zero offset
 SG_zeros = [0; 0; 0;];
-for i = 1:10
-    [~, ~, ~, SG1, SG2, SG3] = sensors_read(s);
-    SG_zeros = SG_zeros + [SG1; SG2; SG3];
-    pause(0.15)
-end
+% for i = 1:10
+%     [~, ~, ~, SG1, SG2, SG3] = sensors_read(s);
+%     SG_zeros = SG_zeros + [SG1; SG2; SG3];
+%     pause(0.15)
+% end
 SG_zeros = SG_zeros ./ 10;
 fprintf("zeroed with SG1: %.4f SG2: %.4f SG3: %.4f", SG_zeros(1), SG_zeros(2), SG_zeros(3))
 
 %% LOOP
 while(step_ind <= numel(steps))
-%waitfor(CONT_FREQ); % set loop frequency
+waitfor(CONT_FREQ); % set loop frequency
 
 %% INPUTS
 % Get inputs   
 
-    [PT1, PT2, PT3, SG1, SG2, SG3] = sensors_read(s); % read in sensors
+    % [PT1, PT2, PT3, SG1, SG2, SG3] = sensors_read(s); % read in sensors
     
     % % FAKE DATA FOR TESTING, COMMENT OUT
-    % PT1 = PT1 +100;
-    % PT2 = PT2 +225;
-    % PT3 = PT3 +350;
+    PT1 = 0;
+    PT2 = 0;
+    PT3 = 0;
+    SG1 = 0;
+    SG2 = 0;
+    SG3 = 0;
         
     % [SG1 SG2 SG3]
     % SGs = [0 0 0];
@@ -319,7 +322,7 @@ end
 
     step_dir = sign(-steps_commanded);
     
-    drive_steppers(s, step_dir, abs(steps_commanded)); % drive steppers
+    % drive_steppers(s, step_dir, abs(steps_commanded)); % drive steppers
     
     else
         steps_commanded = [0 0 0]';

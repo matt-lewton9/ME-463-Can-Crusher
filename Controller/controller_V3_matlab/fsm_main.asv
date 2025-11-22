@@ -3,7 +3,7 @@ close all;
 clear;
 
 %% Load Customer Inputs
-cust_inputs = readmatrix("customer_inputs_CUSTOMER_10_DEG.xlsx"); % import customer data
+cust_inputs = readmatrix("customer_inputs_CUSTOMER_180_DEG.xlsx"); % import customer data
 cust_inputs = cust_inputs(:,2:end); % trim 1st col
 
 steps = cust_inputs(1,:);
@@ -56,7 +56,7 @@ load_step_start = toc(load_step_timer);
 
 %% Init arduino connection
 disp("Connecting to arduino on COM port " + COM_PORT + " ...")
-s = serialport(COM_PORT, 115200);
+% s = serialport(COM_PORT, 115200);
 disp("Connected")
 
 %% Initiate plotting
