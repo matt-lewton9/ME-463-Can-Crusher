@@ -15,7 +15,7 @@ hold_steps = cust_inputs(6,:);
 
 
 %% CONTROLLER INPUTS
-CONT_FREQ = rateControl(10); % desired controller frequency [Hz]
+CONT_FREQ = rateControl(5); % desired controller frequency [Hz]
 TGT_LIM = 0.02; % error to consider presssure "reached target" [% error]
 TGT_STEP = 0.02; % size of pressure step increments [% to next target pressure]
 ABT_LIM = 1.20; % deviation above commanded pressure to trigger abort [multiple of commanded pressure]
@@ -64,6 +64,7 @@ plot_timer = tic;
 times = 0;
 PTs = [0;0;0];
 SGs = [0;0;0];
+F_command_prev = [0 0 0];
 F_command = [0 0 0];
 F_command_hist= F_command';
 step_command_hist = [0;0;0];
@@ -197,9 +198,9 @@ waitfor(CONT_FREQ); % set loop frequency
     % [PT1, PT2, PT3, SG1, SG2, SG3] = sensors_read(s); % read in sensors
     
     % % FAKE DATA FOR TESTING, COMMENT OUT
-    PT1 = 0;
-    PT2 = 0;
-    PT3 = 0;
+    PT1 = ((F_command(1)-F_command_prev(1)).*tgt_pct + F_command_prev(1)) / CYLINDER_AREA;
+    PT2 = ((F_command(2)-F_command_prev(2)).*tgt_pct + F_command_prev(2)) / CYLINDER_AREA;
+    PT3 = ((F_command(3)-F_command_prev(3)).*tgt_pct + F_command_prev(3)) / CYLINDER_AREA;
     SG1 = 0;
     SG2 = 0;
     SG3 = 0;
@@ -214,10 +215,10 @@ waitfor(CONT_FREQ); % set loop frequency
     ST = ST_button.Value; %GET FROM GUI INPUT;
     MHD = HD_button.Value; % Manual Hold
     SP = SP_button.Value; % STOP
-
+    
     F_command = act_loads(compress_steps(step_ind), bending_steps(step_ind), bending_angle_steps(step_ind)) ./ 2; % account for pulley
-    F_meas = PT_Reading .* CYLINDER_AREA; %Force = press * bore area
-    F_pct = F_meas./(F_command'+5); %pct of total press
+    F_meas = PT_Reading .* CYLINDER_AREA; % Force = press * bore area
+    F_pct = F_meas./(F_command'+eps); % pct of total press
 
 % Set Input Variables    
     %if all at Target pressure
@@ -233,12 +234,13 @@ waitfor(CONT_FREQ); % set loop frequency
     end
     
 if(AHD) %if auto hold on    
-    if ((toc(load_step_timer)-load_step_start) >= hold_steps(step_ind)) % if auto hold over
+        % if auto hold over
+    if ((toc(load_step_timer)-load_step_start) >= hold_steps(step_ind))
         AHD = 0; % turn off hold
         tgt_pct = 0; % reset target percent
         step_ind = step_ind+1; % step to next index
         load_step_start = toc(load_step_timer); % reset step timer
-
+        F_command_prev = F_command;
     end
 end
 
@@ -315,7 +317,7 @@ end
             load_ramp_start = toc(load_ramp_timer);
         end      
         
-    F_diff = (F_command'.*tgt_pct) - F_meas; % diff from commanded force and measured force
+    F_diff = ((F_command'-F_command_prev').*tgt_pct + F_command_prev') - F_meas; % diff from commanded force and measured force
     steps_commanded = ceil(abs(F_diff .* GAIN)) .* sign(F_diff); % gain times 
     idx = steps_commanded>MAX_STEPS; % cap max steps to MAX Steps
     steps_commanded(idx) = MAX_STEPS;
@@ -343,7 +345,7 @@ end
     PT3_plot.XData = times;
     PT3_plot.YData = PTs(3,:);
     
-    F_command_hist = [F_command_hist (F_command'.*tgt_pct)];
+    F_command_hist = [F_command_hist ((F_command'-F_command_prev').*tgt_pct + F_command_prev')];
 
     PT1_tgt_plot.XData = times;
     PT1_tgt_plot.YData = F_command_hist(1,:)./CYLINDER_AREA;
@@ -390,6 +392,5 @@ end
         "  F2: %.0f lbf\n" + ...
         "  F3: %.0f lbf", ...
         steps(step_ind), state, state_names(state), tgt_pct.*100, toc(load_step_timer)-load_step_start, F_command(1), F_command(2), F_command(3));
-    
     drawnow; % push update to screen
 end 
