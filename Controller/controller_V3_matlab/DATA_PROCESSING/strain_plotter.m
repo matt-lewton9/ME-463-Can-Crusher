@@ -23,18 +23,18 @@ figure(randi(1000))
 
 plot(data_times ,SGs(1,:), 'Color',"#33C5FF");
 hold on
-plot(data_times,SGs(2,:), 'Color',"#FFA333");
+%plot(data_times,SGs(2,:), 'Color',"#FFA333");
 hold on
-plot(data_times,SGs(3,:), 'Color',"#C233FF");
+%plot(data_times,SGs(3,:), 'Color',"#C233FF");
 hold on
-% plot(data_times, e1.*(1+ERROR_PCT), '--', 'Color',"#33C5FF")
+plot(data_times, e1.*(1+ERROR_PCT), ':', 'Color',"#1F8A3B")
 hold on
-% plot(data_times, e1.*(1-ERROR_PCT), '--', 'Color',"#33C5FF")
-plot(data_times, e1, '--', 'Color',"#33C5FF")
+plot(data_times, e1.*(1-ERROR_PCT), ':', 'Color',"#1F8A3B")
+plot(data_times, e1, '--', 'Color',"#0A3F1C")
 hold on
-plot(data_times, e2, '--', 'Color',"#FFA333")
+%plot(data_times, e2, '--', 'Color',"#FFA333")
 hold on
-plot(data_times, e3, '--', 'Color',"#C233FF")
+%plot(data_times, e3, '--', 'Color',"#C233FF")
 legend("Strain Guage 1","Strain Guage 2","Strain Guage 3", "SG1 Prediction", "SG2 Prediction", "SG3 Prediction", 'Location', 'northwest')
 title(sprintf("%s Strains", test_name_in));
 xlabel("Time [s]")
