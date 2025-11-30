@@ -3,7 +3,7 @@ close all;
 clear;
 
 %% Load Customer Inputs
-cust_inputs = readmatrix("customer_inputs_MX_COMP_0_DEG.xlsx"); % import customer data
+cust_inputs = readmatrix("customer_inputs_CUSTOMER_180_DEG.xlsx"); % import customer data
 cust_inputs = cust_inputs(:,2:end); % trim 1st col
 
 steps = cust_inputs(1,:);
@@ -121,10 +121,10 @@ s2 = subplot(num_subplots,1,3, 'Parent', left);
         SG1_plot = plot(times, SGs(1,:), 'Color',"#33C5FF");
         hold on
         % [SG2_no_outliers, SG2_rm] = rmoutliers(SGs(2,:));
-        SG2_plot = plot(times, SGs(2,:), SG2_no_outliers, 'Color',"#FFA333");
+        SG2_plot = plot(times, SGs(2,:), 'Color',"#FFA333");
         hold on
         % [SG3_no_outliers, SG3_rm] = rmoutliers(SGs(3,:));
-        SG3_plot = plot(times, SGs(3,:), SG3_no_outliers, 'Color',"#C233FF");
+        SG3_plot = plot(times, SGs(3,:), 'Color',"#C233FF");
         xlabel("Time [s]")
         ylabel("Strain")
         legend("SG 1","SG 2","SG 3", 'Location','northwest')
@@ -214,7 +214,7 @@ while(step_ind <= numel(steps))
 
     F_command = act_loads(compress_steps(step_ind), bending_steps(step_ind), bending_angle_steps(step_ind)) ./ 2; % account for pulley
     F_meas = PT_Reading .* CYLINDER_AREA; %Force = press * bore area
-    F_pct = F_meas./(F_command'); %pct of total press
+    F_pct = F_meas./(F_command'+5); %pct of total press
 
 % Set Input Variables    
     %if all at Target pressure
@@ -319,7 +319,7 @@ end
 
     step_dir = sign(-steps_commanded);
     
-    drive_steppers(s, step_dir, steps_commanded); % drive steppers
+    drive_steppers(s, step_dir, abs(steps_commanded)); % drive steppers
     
     else
         steps_commanded = [0 0 0]';

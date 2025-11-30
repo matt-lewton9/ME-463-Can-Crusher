@@ -1,4 +1,4 @@
-function [PT1, PT2, PT3, SG1, SG2, SG3] = sensors_read(s)
+ function [PT1, PT2, PT3, SG1, SG2, SG3] = sensors_read(s)
 
 write(s,"1","uint8"); % poke arduino
 read(s,1,"uint8");

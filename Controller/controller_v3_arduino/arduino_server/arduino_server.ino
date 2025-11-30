@@ -12,8 +12,8 @@
 #define SG1_DATA 5
 #define SG2_SCK 2
 #define SG2_DATA 3
-#define SG3_SCK 6
-#define SG3_DATA 7
+#define SG3_SCK 8
+#define SG3_DATA 9
 
 // Steper Motors
 #define M1_DIR 22
@@ -66,6 +66,12 @@ void setup() {
 
   // setup straing gauges
   SG1_obj.begin(SG1_DATA, SG1_SCK);
+  // SG1_obj.set_gain(64);
+  SG2_obj.begin(SG2_DATA, SG2_SCK);
+  // SG2_obj.set_gain(64);
+  SG3_obj.begin(SG3_DATA, SG3_SCK);
+  // SG3_obj.set_gain(64);
+
 }
 
 
@@ -95,10 +101,13 @@ void loop() {
     // read strain gauges
     float SG1_raw = SG1_obj.read();
     Serial.print(String(SG1_raw,10) + "\n");
-    float SG2_raw = SG1_obj.read();
+    // Serial.print("sg1 read\n");
+    float SG2_raw = SG2_obj.read();
     Serial.print(String(SG2_raw,10) + "\n");
-    float SG3_raw = SG1_obj.read();
+    // Serial.print("sg2 read\n");
+    float SG3_raw = SG3_obj.read();
     Serial.print(String(SG3_raw,10) + "\n");
+    // Serial.print("sg3 read\n");
   }
   if (cmd == 50) { // recive motor commands
     // send ack
