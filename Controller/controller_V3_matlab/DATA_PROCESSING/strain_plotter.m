@@ -88,6 +88,7 @@ hold on
 plot([0, max(data_times)], [10 10], 'r--')
 hold on
 plot([0, max(data_times)], [-10 -10], 'r--')
+plot([0, max(data_times)], [0 0], 'g--')
 legend("SG 1","SG 2","SG 3", 'Location', 'northwest')
 title(sprintf("%s Percent Error", test_name_in));
 xlabel("Time [s]")
