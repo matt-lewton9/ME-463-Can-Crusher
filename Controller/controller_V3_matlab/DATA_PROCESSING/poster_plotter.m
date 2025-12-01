@@ -64,6 +64,6 @@ title(sprintf("%s Strains", test_name_in));
 xlabel("Time [s]")
 ylabel("Strain [\muin / in] ")
 xlim([0 215])
-ylim([0 505])
-set(gca, 'Position', [0.08 0.08 0.88 0.88]);
+ylim([0 550])
+% set(gca, 'Position', [0.08 0.08 0.88 0.88]);
 end

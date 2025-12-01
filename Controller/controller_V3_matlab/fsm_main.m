@@ -3,7 +3,7 @@ close all;
 clear;
 
 %% Load Customer Inputs
-cust_inputs = readmatrix("customer_inputs_CUSTOMER_180_DEG.xlsx"); % import customer data
+cust_inputs = readmatrix("customer_inputs_MX_BEND_300_DEG.xlsx"); % import customer data
 cust_inputs = cust_inputs(:,2:end); % trim 1st col
 
 steps = cust_inputs(1,:);
@@ -16,13 +16,13 @@ hold_steps = cust_inputs(6,:);
 
 %% CONTROLLER INPUTS
 CONT_FREQ = rateControl(10); % desired controller frequency [Hz]
-TGT_LIM = 0.02; % error to consider presssure "reached target" [% error]
+TGT_LIM = 0.05; % error to consider presssure "reached target" [% error]
 TGT_STEP = 0.02; % size of pressure step increments [% to next target pressure]
 ABT_LIM = 1.20; % deviation above commanded pressure to trigger abort [multiple of commanded pressure]
 GAIN = .3; % Gain for porportional controller [unitless]
 MAX_STEPS = 20; % Max steps for controller to command
 CYLINDER_AREA = (3.776^2)*pi / 4; % area of cylinder [in^2]
-COM_PORT = "/dev/tty.usbmodem14101";
+COM_PORT = "COM5";
 BAUD_RATE = 115200;
 
 %% Set Up State Machine
