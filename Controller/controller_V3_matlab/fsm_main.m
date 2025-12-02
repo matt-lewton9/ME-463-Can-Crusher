@@ -3,7 +3,7 @@ close all;
 clear;
 
 %% Load Customer Inputs
-cust_inputs = readmatrix("customer_inputs_MX_BEND_300_DEG.xlsx"); % import customer data
+cust_inputs = readmatrix("customer_inputs_MX_BEND_240_DEG.xlsx"); % import customer data
 cust_inputs = cust_inputs(:,2:end); % trim 1st col
 
 steps = cust_inputs(1,:);

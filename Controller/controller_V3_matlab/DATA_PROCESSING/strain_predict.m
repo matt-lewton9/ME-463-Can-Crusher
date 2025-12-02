@@ -1,8 +1,13 @@
 function [e1, e2, e3] = strain_predict(F1, F2, F3)
 
-F1 = 2.*F1;
-F2 = 2.*F2;
-F3 = 2.*F3;
+A_old = 3.776^2;
+A_new = 3.776^2 - .5^2;
+
+F1 = 2.*F1 .* A_new ./A_old;
+F2 = 2.*F2 .* A_new ./A_old;
+F3 = 2.*F3 .* A_new ./A_old;
+
+
 
 F_compress = (F1 + F2 + F3);
 
@@ -51,18 +56,14 @@ end
 
 e_comp = F_compress./A./E;
 
-% e1 = e_comp + e_bend(:,1);
-% e2 = e_comp + e_bend(:,2);
-% e3 = e_comp + e_bend(:,3);
-
-e1 = ((e_comp + e_bend(:,1)).* (1.54)) + (11.* 10^-6) ;
-e2 = ((e_comp + e_bend(:,2)).* (1.54)) + (-41 .* 10^-6);
-e3 = ((e_comp + e_bend(:,3)).* (1.54)) + (-59 .* 10^-6);
+% e1 =(e_comp + e_bend(:,1));
+% e2 = (e_comp + e_bend(:,2));
+% e3 = (e_comp + e_bend(:,3));
 
 
-% e1 =(e_comp + e_bend(:,1)) .* (1.54);
-% e2 = (e_comp + e_bend(:,2)) .* (1.54);
-% e3 = (e_comp + e_bend(:,3)) .* 1.54;
+e1 =(e_comp + e_bend(:,1)) .* (1.54);
+e2 = (e_comp + e_bend(:,2)) .* (1.54);
+e3 = (e_comp + e_bend(:,3)) .* 1.54;
 
 
 

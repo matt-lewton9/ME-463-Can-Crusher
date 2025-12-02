@@ -18,6 +18,11 @@ SGs(2,:) = filloutliers(SGs(2,:),'linear',"movmedian",10);
 SGs(3,:) = filloutliers(SGs(3,:),'linear',"movmedian",10);
 
 
+SGs(1,:) = SGs(1,:) + (46) ;
+SGs(2,:) = SGs(2,:) + (-17);
+SGs(3,:) = SGs(3,:) + (55);
+
+
 [e1, e2, e3] = strain_predict(PTs(1,:)'.*CYLINDER_AREA, PTs(2,:)'.*CYLINDER_AREA, PTs(3,:)'.*CYLINDER_AREA);
 
 e1 = e1 .* (10^6);
