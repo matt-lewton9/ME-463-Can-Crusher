@@ -29,20 +29,21 @@ e1 = e1 .* (10^6);
 e2 = e2 .* (10^6);
 e3 = e3 .* (10^6);
 
+
 figure(randi(1000))
 
-plot(data_times ,SGs(2,:), 'Color',"#33C5FF"); % SG 1 and 2 are crossed somewhere,check wiring
+plot(data_times ,SGs(2,:), 'Color',"#C233FF"); % SG 1 and 2 are crossed somewhere,check wiring
 hold on
 plot(data_times,SGs(1,:), 'Color',"#FFA333");
-hold on
+% hold on
 plot(data_times,SGs(3,:), 'Color',"#C233FF");
-hold on
+% hold on
 
 %error bars
-% plot(data_times, e1.*1.1, '--', 'Color',"#33C5FF")
-% % hold on
-% plot(data_times, e1.*.9, '--', 'Color',"#33C5FF")
-% hold on
+plot([data_times(1) data_times(end)], 665.*1.1.*[1 1], '--', 'Color',"#FFA333")
+hold on
+plot([data_times(1) data_times(end)], 665*.9.*[1 1], '--', 'Color',"#FFA333")
+hold on
 % plot(data_times, e2.*1.1, '--', 'Color',"#FFA333")
 % hold on
 % plot(data_times, e2.*.9, '--', 'Color',"#FFA333")
@@ -51,53 +52,54 @@ hold on
 % hold on
 % plot(data_times, e3.*.9, '--', 'Color',"#C233FF")
 
-% tgt lines
-plot(data_times, e1, '--', 'Color',"#33C5FF")
-hold on
-plot(data_times, e2, '--', 'Color',"#FFA333")
-hold on
-plot(data_times, e3, '--', 'Color',"#C233FF")
-
-
-
-legend("Strain Guage 1","Strain Guage 2","Strain Guage 3", "SG1 Prediction", "SG2 Prediction", "SG3 Prediction", 'Location', 'northwest')
+% % tgt lines
+% plot(data_times, e1, '--', 'Color',"#33C5FF")
+% hold on
+% plot(data_times, e2, '--', 'Color',"#FFA333")
+% hold on
+% plot(data_times, e3, '--', 'Color',"#C233FF")
+% 
+legend("Strain Guage 1","+/- 10% Error", 'Location', 'northwest')
 title(sprintf("%s Strains", test_name_in));
 xlabel("Time [s]")
 ylabel("Strain [\muin / in] ")
+xlim([0 data_times(end)])
 
-
-
-% figure(randi(1000))
-% 
-% plot(data_times,PTs(1,:).*CYLINDER_AREA);
-% hold on
-% plot(data_times,PTs(2,:).*CYLINDER_AREA);
-% hold on
-% plot(data_times,PTs(3,:).*CYLINDER_AREA);
-% legend("Actuator 1","Actuator 2","Actuator 3", 'Location', 'southeast')
-% title(sprintf("%s Forces", test_name_in));
-% xlabel("Time [s]")
-% ylabel("Force [lbf] ")
 
 
 figure(randi(1000))
 
-
-plot(data_times ,(SGs(2,:)'-e1)./e1.*100, 'Color',"#33C5FF"); % SG 1 and 2 are crossed somewhere,check wiring
+plot(data_times,PTs(1,:).*CYLINDER_AREA);
 hold on
-plot(data_times,(SGs(1,:)'-e2)./e2.*100, 'Color',"#FFA333");
+plot(data_times,PTs(2,:).*CYLINDER_AREA);
 hold on
-plot(data_times,(SGs(3,:)'-e3)./e3.*100, 'Color',"#C233FF");
-hold on
-plot([0, max(data_times)], [10 10], 'r--')
-hold on
-plot([0, max(data_times)], [-10 -10], 'r--')
-plot([0, max(data_times)], [0 0], 'g--')
-legend("SG 1","SG 2","SG 3", 'Location', 'northwest')
-title(sprintf("%s Percent Error", test_name_in));
+plot(data_times,PTs(3,:).*CYLINDER_AREA);
+legend("Actuator 1","Actuator 2","Actuator 3", 'Location', 'northwest')
+title(sprintf("%s Forces", test_name_in));
 xlabel("Time [s]")
-ylabel("Percent Error [%] ")
-ylim([-20 20])
+ylabel("Force [lbf] ")
+xlim([0 data_times(end)])
+
+
+
+% figure(randi(1000))
+
+% 
+% plot(data_times ,(SGs(2,:)'-e1)./e1.*100, 'Color',"#33C5FF"); % SG 1 and 2 are crossed somewhere,check wiring
+% hold on
+% plot(data_times,(SGs(1,:)'-e2)./e2.*100, 'Color',"#FFA333");
+% hold on
+% plot(data_times,(SGs(3,:)'-e3)./e3.*100, 'Color',"#C233FF");
+% hold on
+% plot([0, max(data_times)], [10 10], 'r--')
+% hold on
+% plot([0, max(data_times)], [-10 -10], 'r--')
+% plot([0, max(data_times)], [0 0], 'g--')
+% legend("SG 1","SG 2","SG 3", 'Location', 'northwest')
+% title(sprintf("%s Percent Error", test_name_in));
+% xlabel("Time [s]")
+% ylabel("Percent Error [%] ")
+% ylim([-20 20])
 
 clear;
 end
